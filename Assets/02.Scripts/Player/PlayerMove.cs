@@ -8,7 +8,7 @@ public class PlayerMove : MonoBehaviour
 
      public Camera cam;
      [SerializeField]
-     public float padding = 0.01f; // 화면 끝에서 얼마나 떨어뜨릴지 (뷰포트 단위)
+     public float padding = 1f; // 화면 끝에서 얼마나 떨어뜨릴지 (뷰포트 단위)
 
      private void Start()
      {
@@ -39,37 +39,17 @@ public class PlayerMove : MonoBehaviour
             
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            moveSpeed = 10f;
-        }
-        else if(Input.GetKeyUp(KeyCode.E))
-        {
-            moveSpeed = 5f;
-        }
+
         
         
         // 2. 키보드 입력에 따라 방향 계산
-        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0f);
-        // 즉시 입력값을 -1 ,1로 나올려면 GetAxisRaw를 쓴다.
+        Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"),0f);
+        // 즉시 입력값을 -1 ,1로 나올려면 GetAxisRaw를 쓴다. 점진적으로 가속은 GetAxis
         //Debug.Log($"{direction.x},{direction.y}으로 이동중");
 
         // 3. 방향과 속도에 따라 이동
-        Vector3 normalizedSpeed = (direction * moveSpeed).normalized;
-        transform.Translate(normalizedSpeed * Time.deltaTime );
-        Vector3 targetPos = transform.position + (normalizedSpeed * Time.deltaTime);
+        Vector3 normalizedSpeed = (direction ).normalized;
+        
+        transform.Translate(normalizedSpeed * Time.deltaTime * moveSpeed );
 
-        // 월드 -> 뷰포트
-        Vector3 vp = cam.WorldToViewportPoint(targetPos);
-
-        // 뷰포트 범위 0..1로 제한 (패딩 적용)
-        vp.x = Mathf.Clamp(vp.x, padding, 1f - padding);
-        vp.y = Mathf.Clamp(vp.y, padding, 1f - padding);
-
-        // 다시 월드 좌표로 변환. z는 원래 거리 유지
-        Vector3 clampedWorld = cam.ViewportToWorldPoint(vp);
-        clampedWorld.z = targetPos.z;
-
-        transform.position = clampedWorld;
-    }
 }
