@@ -39,7 +39,15 @@ public class PlayerMove : MonoBehaviour
             
         }
 
-
+        // 속도 조절
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            moveSpeed = Mathf.Min(moveSpeed+1f,20f);
+        }
+        else if(Input.GetKeyDown(KeyCode.Q))
+        {
+            moveSpeed = Mathf.Max(moveSpeed-1f,5f);
+        }
         
         
         // 2. 키보드 입력에 따라 방향 계산
