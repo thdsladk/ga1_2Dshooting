@@ -5,6 +5,7 @@ public class BulletMove : MonoBehaviour
     public Vector2 Direction;
     public float Speed = 10;
     
+    
      private void Start()
     {
         Direction = Vector2.up;
