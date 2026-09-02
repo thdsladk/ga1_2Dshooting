@@ -1,0 +1,62 @@
+using UnityEngine;
+
+public class PlayerMove : MonoBehaviour
+{
+    // 목적 : 키보드 입력에 따라서 플레이어 이동 처리
+     [SerializeField]
+     public float moveSpeed = 5f;
+
+     public Camera cam;
+     [SerializeField]
+     public float padding = 0.01f; // 화면 끝에서 얼마나 떨어뜨릴지 (뷰포트 단위)
+
+     private void Start()
+     {
+         if (cam == null)
+         { 
+             cam = Camera.main;
+         }
+     }
+     // 매 프레임마다 실행 된다. 
+     // 초당 프레임 
+     private void Update()
+    {
+        // 1. 키보드 입력 
+        if (Input.GetKey(KeyCode.W)|| Input.GetKey(KeyCode.UpArrow))
+        {
+            //Debug.Log("정면 방향 키를 누르는 중입니다. ");
+        }
+        if (Input.GetKey(KeyCode.D)|| Input.GetKey(KeyCode.RightArrow))
+        {
+            
+        }
+        if (Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.LeftArrow))
+        {
+            
+        }
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        {
+            
+        }
+        // 2. 키보드 입력에 따라 방향 계산
+        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0f);
+        //Debug.Log($"{direction.x},{direction.y}으로 이동중");
+
+        // 3. 방향과 속도에 따라 이동
+        transform.Translate(direction * Time.deltaTime * moveSpeed);
+        Vector3 targetPos = transform.position + (direction * moveSpeed * Time.deltaTime);
+
+        // 월드 -> 뷰포트
+        Vector3 vp = cam.WorldToViewportPoint(targetPos);
+
+        // 뷰포트 범위 0..1로 제한 (패딩 적용)
+        vp.x = Mathf.Clamp(vp.x, padding, 1f - padding);
+        vp.y = Mathf.Clamp(vp.y, padding, 1f - padding);
+
+        // 다시 월드 좌표로 변환. z는 원래 거리 유지
+        Vector3 clampedWorld = cam.ViewportToWorldPoint(vp);
+        clampedWorld.z = targetPos.z;
+
+        transform.position = clampedWorld;
+    }
+}
