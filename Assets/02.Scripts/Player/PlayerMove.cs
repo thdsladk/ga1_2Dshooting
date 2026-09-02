@@ -52,4 +52,9 @@ public class PlayerMove : MonoBehaviour
         
         transform.Translate(normalizedSpeed * Time.deltaTime * moveSpeed );
 
+        
+        
+        // 범위 제한
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, (-2f + padding), (2f -padding)),
+            Mathf.Clamp(transform.position.y, (-5f + padding), (0f-padding)));
 }
