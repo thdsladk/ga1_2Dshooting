@@ -6,16 +6,27 @@ public class PlayerFire : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform FirePointLeft;
     public Transform FirePointRight;
-
+    public float CoolDown = 3f;
+    [SerializeField]
+    private float _fireTimer = 0f;
     
      private void Start()
-    {
-        
-    }
+     {
+         _fireTimer = CoolDown;
+     }
 
      private void Update()
     {
-        FireBullet();
+        if (_fireTimer > 0f)
+        {
+            _fireTimer -= Time.deltaTime;
+        }
+        else
+        {
+            FireBullet();
+            
+        }
+        
     }
      
     private void FireBullet()
@@ -29,6 +40,9 @@ public class PlayerFire : MonoBehaviour
             bulletLeft.transform.position = FirePointLeft.transform.position;    // 플레이어 위치로.
             GameObject bulletRight = Instantiate(bulletPrefab);
             bulletRight.transform.position = FirePointRight.transform.position;    // 플레이어 위치로.
+            
+            // 발사후 초기화
+            _fireTimer = CoolDown;
         } 
     }
 }
