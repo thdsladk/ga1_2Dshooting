@@ -52,7 +52,15 @@ public class PlayerMove : MonoBehaviour
         
         transform.Translate(normalizedSpeed * Time.deltaTime * moveSpeed );
 
-        
+        // 반대편으로 이동
+        if (transform.position.x < (-2f + padding))
+        {
+            transform.position = new Vector3(2f - padding, transform.position.y, transform.position.z);
+        }
+        else if (transform.position.x > (2f - padding))
+        {
+            transform.position = new Vector3(-2f + padding, transform.position.y, transform.position.z);
+        }
         
         // 범위 제한
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, (-2f + padding), (2f -padding)),
