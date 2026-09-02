@@ -14,7 +14,7 @@ public class PlayerFire : MonoBehaviour
     [SerializeField]
     private float _fireTimer = 0f;
 
-    private bool _isAutoFire = false;
+    private bool _isAutoFireMode = false;
     
      private void Start()
      {
@@ -32,7 +32,7 @@ public class PlayerFire : MonoBehaviour
         }
         else
         {
-            FireBullet(_isAutoFire);
+            FireBullet(_isAutoFireMode);
         }
     }
      
@@ -63,7 +63,7 @@ public class PlayerFire : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _isAutoFire = !_isAutoFire;
+            _isAutoFireMode = !_isAutoFireMode;
         }
     }
 }
