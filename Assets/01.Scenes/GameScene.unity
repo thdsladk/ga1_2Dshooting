@@ -526,6 +526,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7042054733396789857, guid: 99dff084d9e44b04b8a6e2ec452bb1eb, type: 3}
+      propertyPath: CoolDown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7042054733396789857, guid: 99dff084d9e44b04b8a6e2ec452bb1eb, type: 3}
+      propertyPath: FirePointLeft
+      value: 
+      objectReference: {fileID: 1896205490}
+    - target: {fileID: 7042054733396789857, guid: 99dff084d9e44b04b8a6e2ec452bb1eb, type: 3}
+      propertyPath: FirePointRight
+      value: 
+      objectReference: {fileID: 2006322104}
     - target: {fileID: 8100288029263751772, guid: 99dff084d9e44b04b8a6e2ec452bb1eb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
