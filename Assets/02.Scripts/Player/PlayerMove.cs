@@ -38,13 +38,26 @@ public class PlayerMove : MonoBehaviour
         {
             
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            moveSpeed = 10f;
+        }
+        else if(Input.GetKeyUp(KeyCode.E))
+        {
+            moveSpeed = 5f;
+        }
+        
+        
         // 2. 키보드 입력에 따라 방향 계산
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0f);
+        // 즉시 입력값을 -1 ,1로 나올려면 GetAxisRaw를 쓴다.
         //Debug.Log($"{direction.x},{direction.y}으로 이동중");
 
         // 3. 방향과 속도에 따라 이동
-        transform.Translate(direction * Time.deltaTime * moveSpeed);
-        Vector3 targetPos = transform.position + (direction * moveSpeed * Time.deltaTime);
+        Vector3 normalizedSpeed = (direction * moveSpeed).normalized;
+        transform.Translate(normalizedSpeed * Time.deltaTime );
+        Vector3 targetPos = transform.position + (normalizedSpeed * Time.deltaTime);
 
         // 월드 -> 뷰포트
         Vector3 vp = cam.WorldToViewportPoint(targetPos);
