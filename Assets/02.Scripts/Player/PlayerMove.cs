@@ -12,6 +12,8 @@ public class PlayerMove : MonoBehaviour
      [SerializeField]
      public float padding = 1f; // 화면 끝에서 얼마나 떨어뜨릴지 (뷰포트 단위)
      private bool _isReplay = false;
+     
+    
 
      //private KeyCommand _keyCommands = new KeyCommand();
      private void Start()
@@ -48,7 +50,8 @@ public class PlayerMove : MonoBehaviour
              }
             // 콘텐츠 중심으로 명명법을 사용해라.
              SpeedChanger();
-
+            
+             
              // 2. 키보드 입력에 따라 방향 계산
              Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0f);
              // 즉시 입력값을 -1 ,1로 나올려면 GetAxisRaw를 쓴다. 점진적으로 가속은 GetAxis
@@ -72,6 +75,8 @@ public class PlayerMove : MonoBehaviour
              // 범위 제한
              transform.position = new Vector3(Mathf.Clamp(transform.position.x, (-2f + padding), (2f - padding)),
                  Mathf.Clamp(transform.position.y, (-5f + padding), (0f - padding)));
+
+
          } 
      }
 
@@ -88,8 +93,7 @@ public class PlayerMove : MonoBehaviour
          }
      }
 
-     private void FixedUpdate()
-     {}
+
 
 
 }
