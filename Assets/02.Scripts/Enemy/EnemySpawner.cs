@@ -1,4 +1,7 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
+using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -9,7 +12,9 @@ public class EnemySpawner : MonoBehaviour
     private float _timer;
 
     // - 생성할 프리팹
-    [Header("스폰할 적 프리팹")] [SerializeField] private Enemy _enemyPrefab;
+    [Header("스폰할 적 프리팹")] [SerializeField] private List<Enemy> _enemyPrefabs;
+
+
 
 
     private void Update()
@@ -18,15 +23,30 @@ public class EnemySpawner : MonoBehaviour
         if (_timer >= _spawnInterval)
         {
             _timer = 0;
-            _spawnInterval = UnityEngine.Random.Range(1f, 3f);  // float : 1f ~ 3f
-            int randomInt = Random.Range(1, 3);                 // int : 1 ~ 2
+            _spawnInterval = UnityEngine.Random.Range(1f, 3f); // float : 1f ~ 3f
+            int randomInt = Random.Range(1, 3); // int : 1 ~ 2
             Spawn();
         }
     }
 
     private void Spawn()
     {
-        Enemy enemy = Instantiate(_enemyPrefab);
+        int PerSent = UnityEngine.Random.Range(1, 101);
+        int Index = 0;
+        if (PerSent < 50)
+        {
+            
+        }
+        else if(PerSent < 80)
+        {
+            Index = 1;
+        }
+        else
+        {
+            Index = 2;
+        }
+        
+        Enemy enemy = Instantiate(_enemyPrefabs[Index]);
         enemy.transform.position = transform.position;
     }
 }

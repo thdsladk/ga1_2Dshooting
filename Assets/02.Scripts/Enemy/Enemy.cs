@@ -5,6 +5,7 @@ public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] private int _health = 100;
     [SerializeField] protected float _moveSpeed;
+    [SerializeField] protected int _damage;
 
     private void Update()
     {
@@ -19,6 +20,26 @@ public abstract class Enemy : MonoBehaviour
         _health -= damage;
         if (_health <= 0)
         {
+            Destroy(gameObject);
+        }
+    }
+
+    public int GetDamage()
+    {
+        return _damage;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("충돌");
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("충돌");
+            Player player = other.gameObject.GetComponent<Player>();
+
+            // 플레이어
+            player.TakeDamage(_damage);
+            // 자신
             Destroy(gameObject);
         }
     }

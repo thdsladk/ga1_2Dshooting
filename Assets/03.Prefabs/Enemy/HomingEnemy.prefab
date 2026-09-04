@@ -181,3 +181,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HomingEnemy
   _health: 100
   _moveSpeed: 2
+  _damage: 1
