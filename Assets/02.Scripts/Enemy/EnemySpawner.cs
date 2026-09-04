@@ -12,9 +12,7 @@ public class EnemySpawner : MonoBehaviour
     private float _timer;
 
     // - 생성할 프리팹
-    [Header("스폰할 적 프리팹")] [SerializeField] private List<Enemy> _enemyPrefabs;
-
-
+    [Header("스폰할 적 프리팹")] [SerializeField] private Enemy[] _enemyPrefabs;
 
 
     private void Update()
@@ -31,13 +29,19 @@ public class EnemySpawner : MonoBehaviour
 
     private void Spawn()
     {
+        // 단점
+        // 1. 세팅한 사람만 뭐가 어떤 프리팹이 들어 있는지 모른다.
+        // 2. 각 적 스폰 확률을 매직 넘버로 하드 코딩해서 유지보수가 어렵다.
+        // 그래서 !!!!! 
+        // Todo: Scriptable Object 를 사용해서 리팩토링
+        //
+        
         int PerSent = UnityEngine.Random.Range(1, 101);
         int Index = 0;
         if (PerSent < 50)
         {
-            
         }
-        else if(PerSent < 80)
+        else if (PerSent < 80)
         {
             Index = 1;
         }
@@ -45,7 +49,7 @@ public class EnemySpawner : MonoBehaviour
         {
             Index = 2;
         }
-        
+
         Enemy enemy = Instantiate(_enemyPrefabs[Index]);
         enemy.transform.position = transform.position;
     }
