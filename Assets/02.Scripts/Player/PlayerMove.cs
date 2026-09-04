@@ -1,99 +1,71 @@
-using NUnit.Framework.Constraints;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class PlayerMove : MonoBehaviour
 {
-    // 목적 : 키보드 입력에 따라서 플레이어 이동 처리
-     [SerializeField]
-     public float moveSpeed = 5f;
+    // 목적: 키보드 입력에 따라서 플레이어 이동 처리를 하고 싶다.
 
-     public Camera cam;
-     [SerializeField]
-     public float padding = 1f; // 화면 끝에서 얼마나 떨어뜨릴지 (뷰포트 단위)
-     private bool _isReplay = false;
-     
-    
+    // 필요 필드:
+    public float Speed;
+    public float MaxPositionY;
+    public float MinPositionY;
+    public float MaxPositionX;
+    public float MinPositionX;
 
-     //private KeyCommand _keyCommands = new KeyCommand();
-     private void Start()
-     {
-         if (cam == null)
-         { 
-             cam = Camera.main;
-         }
 
-         
-     }
-     // 매 프레임마다 실행 된다. 
-     // 초당 프레임 
-     private void Update()
-     {
+    // 매 프레임마다 실행된다.
+    // 초당 프레임 실행 횟수는: 별다른 설정이 없을 경우 가능한 많이
+    private void Update()
+    {
         Move();
 
-     }
+        SpeedChange();
+    }
 
-     private void Move()
-     {
-         if (_isReplay == true)
-         {
-             //foreach (KeyCode key in _keyCommands.StartReplay())
-             //{
-             //    
-             //}
-         }
-         else
-         {
-             if (Input.GetKeyDown(KeyCode.R))
-             {
-                 _isReplay = true;
-             }
-            // 콘텐츠 중심으로 명명법을 사용해라.
-             SpeedChanger();
-            
-             
-             // 2. 키보드 입력에 따라 방향 계산
-             Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0f);
-             // 즉시 입력값을 -1 ,1로 나올려면 GetAxisRaw를 쓴다. 점진적으로 가속은 GetAxis
-             //Debug.Log($"{direction.x},{direction.y}으로 이동중");
+    private void SpeedChange()
+    {
+        // 7. Q/E 버튼 입력을 통한 스피드 업/다운
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Speed++;
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Speed--;
+        }
+    }
 
-             // 3. 방향과 속도에 따라 이동
-             Vector3 normalizedSpeed = (direction).normalized;
+    private void Move()
+    {
+        // 1. 키보드 입력을 받는다.
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
 
-             transform.Translate(normalizedSpeed * Time.deltaTime * moveSpeed);
+        // 2. 키보드 입력에 따라 방향을 구한다.
+        Vector2 normalizedDirection = new Vector2(h, v).normalized;
 
-             // 반대편으로 이동
-             if (transform.position.x < (-2f + padding))
-             {
-                 transform.position = new Vector3(2f - padding, transform.position.y, transform.position.z);
-             }
-             else if (transform.position.x > (2f - padding))
-             {
-                 transform.position = new Vector3(-2f + padding, transform.position.y, transform.position.z);
-             }
+        // 3. 방향과 속력에 따라 이동한다.
+        Vector2 newPosition = transform.position + (Vector3)normalizedDirection * Speed * Time.deltaTime;
 
-             // 범위 제한
-             transform.position = new Vector3(Mathf.Clamp(transform.position.x, (-2f + padding), (2f - padding)),
-                 Mathf.Clamp(transform.position.y, (-5f + padding), (0f - padding)));
+        // 4. 위치 y에 제한이 있다.
+        if (newPosition.y > MaxPositionY)
+        {
+            newPosition.y = MaxPositionY;
+        }
+        else if (newPosition.y < MinPositionY)
+        {
+            newPosition.y = MinPositionY;
+        }
 
+        // 5. 양 옆 끝으로 가면 반대쪽 방향으로 이동
+        if (newPosition.x > MaxPositionX)
+        {
+            newPosition.x = MinPositionX;
+        }
+        else if (newPosition.x < MinPositionX)
+        {
+            newPosition.x = MaxPositionX;
+        }
 
-         } 
-     }
-
-     private void SpeedChanger()
-     {
-         // 속도 조절
-         if (Input.GetKeyDown(KeyCode.E))
-         {
-             moveSpeed = Mathf.Min(moveSpeed + 1f, 20f);
-         }
-         else if (Input.GetKeyDown(KeyCode.Q))
-         {
-             moveSpeed = Mathf.Max(moveSpeed - 1f, 5f);
-         }
-     }
-
-
-
-
+        transform.position = newPosition;
+    }
 }
