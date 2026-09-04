@@ -59,10 +59,10 @@ jobs:
         uses: google-github-actions/run-gemini-cli@v0.1.22
         env:
           GEMINI_CLI_TRUST_WORKSPACE: 'true'
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY_SUB }}
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY_SUB }}
           prompt: |
             현재 저장소의 최신 커밋을 코드 리뷰하세요.
 
