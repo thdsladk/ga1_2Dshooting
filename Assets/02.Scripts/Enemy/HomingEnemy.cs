@@ -10,9 +10,14 @@ public class HomingEnemy : Enemy
         _player = GameObject.FindWithTag("Player");
     }
 
+
     protected override void Move()
     {
-        if (_player == null) return;
+        if (_player == null)
+        {
+            Debug.Log("플레이어를 찾지 못했습니다.");
+        }
+
         // 1. 방향을 구한다.
         Vector2 direction = _player.transform.position - transform.position;
         direction.Normalize();

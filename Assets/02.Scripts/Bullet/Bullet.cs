@@ -26,6 +26,10 @@ public class Bullet : MonoBehaviour
         {
             // GetComponent<타입>() -> 게임 오브젝트가 가지고 있는 컴포넌트를 참조
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            if (enemy == null)
+            {
+                Debug.LogWarning("enemy is null");
+            }
 
             // 응집도는 높히고, 결합도는 낮춰라
             // 결합도란 묻는거.. 매번 묻는거..
@@ -35,28 +39,6 @@ public class Bullet : MonoBehaviour
         }
     }
 
-
-    // 충돌 관련 이벤트 (Enter -> Stay -> Exit)
-
-    // 충돌이 시작되면 호출되는 이벤트 함수
-    /*private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // 나죽고!
-        Destroy(this.gameObject);
-
-        // 충돌한 친구가 Enemy일때만 죽여쁠자!
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            // GetComponent<타입>() -> 게임 오브젝트가 가지고 있는 컴포넌트를 참조
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-
-            // 응집도는 높히고, 결합도는 낮춰라
-            // 결합도란 묻는거.. 매번 묻는거..
-            // 무적모드 검사하고
-            // 방어력 검사..
-            enemy.TakeDamage(Damage);
-        }
-    }*/
 
     private void OnCollisionStay2D(Collision2D collision)
     {

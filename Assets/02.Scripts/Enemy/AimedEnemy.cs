@@ -19,8 +19,11 @@ public class AimedEnemy : Enemy
 
     protected override void Move()
     {
-        if (_player == null) return;
-    
+        if (_player == null)
+        {
+            Debug.Log("플레이어를 찾지 못했습니다.");
+        }
+
         //  방향과 속도에 맞게 이동한다.
         transform.Translate(_direction * _moveSpeed * Time.deltaTime);
     }
