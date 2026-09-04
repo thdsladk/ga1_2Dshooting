@@ -10,6 +10,6 @@ public class GeminiReviewParticle : MonoBehaviour
      private void Update()
     {
         
-        Debug.Log($"Player Position: {transform.position}");
+        Debug.Log($"Player Position: {transform.position} {transform.rotation}");
     }
 }
