@@ -31,10 +31,8 @@ public abstract class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("충돌");
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("충돌");
             Player player = other.gameObject.GetComponent<Player>();
 
             // 플레이어
