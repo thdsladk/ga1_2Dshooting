@@ -80,6 +80,3 @@ jobs:
             근거가 약한 추측이나 과도한 리팩터링 제안은 피하세요.
 
             파일을 수정하거나 Commit하지 말고
-            리뷰 결과만 한국어로 작성하세요.
-
-      - name: Add review to Actions summary
