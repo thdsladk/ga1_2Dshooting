@@ -5,12 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _health;
-    [SerializeField] private int _damage;
+    [SerializeField] private float _damage;
     [SerializeField] private float _attackSpeed = 1f;
 
     // 멤버 컴포넌트 자리
     [SerializeField] private InteractiveComponent _interactableComponent;
-    [SerializeField] private PlayerMove _playerMove;
+    //[SerializeField] private PlayerMove _playerMove;
 
     //private void Start()
     //{
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
         _health = health;
     }
 
-    public void SetDamage(int damage)
+    public void SetDamage(float damage)
     {
         _health = damage;
     }
@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     public void SetMoveSpeed(float moveSpeed)
     {
         // 접근이 위험 하다.
-        _playerMove.Speed = moveSpeed;
+        GetComponent<PlayerMove>().Speed = moveSpeed;
     }
 
     public void TakeDamage(int damage)
@@ -60,7 +60,30 @@ public class Player : MonoBehaviour
         // 여기서는 아이템 값을 받고 아이템 오브젝트를 소멸 
         if (other.CompareTag("Item"))
         {
-            other.gameObject.GetComponent<Item>()
+            Item item = other.gameObject.GetComponent<Item>();
+            if (item == null)
+            {
+                Debug.LogWarning("아이템 태그 오브젝트에 아이템 컴포넌트가 없습니다.");
+            }
+
+            switch (item.Type)
+            {
+                case "heal":
+                {
+                    _health += item.BuffScale;
+                    break;
+                }
+                case "moveSpeedUp":
+                {
+                    GetComponent<PlayerMove>().Speed += item.BuffScale;
+                    break;
+                }
+                case "fireRateUp":
+                {
+                    _damage += item.BuffScale;
+                    break;
+                }
+            }
         }
     }
 }

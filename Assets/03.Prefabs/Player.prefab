@@ -181,8 +181,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7e4a69ed4ee1d4c81025d1eb1c78a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  _health: 1
+  _health: 10
   _damage: 100
+  _attackSpeed: 1
+  _interactableComponent: {fileID: 0}
+  _playerMove: {fileID: 0}
 --- !u!60 &-7584759916448562988
 PolygonCollider2D:
   m_ObjectHideFlags: 0

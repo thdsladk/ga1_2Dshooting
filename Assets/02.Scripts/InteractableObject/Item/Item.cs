@@ -16,7 +16,8 @@ using UnityEngine.Serialization;
 public class Item : InteractableObject
 {
     [SerializeField] protected float _itemMoveSpeed = 1f;
-    [SerializeField] protected float _buffScale = 0f;
+    public float BuffScale = 0f;
+    public string Type;
 
     // Idle Motion 관련 변수
     [SerializeField] private float _idleAmplitude = 0.2f; // 위아래 움직임 크기
@@ -41,33 +42,27 @@ public class Item : InteractableObject
         }
         else
         {
-            if (_isChase == false)
-            {
-                IdleMotion();
-            }
-            else
-            {
-                Move();
-            }
+            Move();
         }
     }
 
-    public float GetItem
+    //public float GetItem
 
     /// <summary>
     /// 아이템을 위아래로 생동감 있게 움직이는 메서드
     /// </summary>
     private void IdleMotion()
     {
-        float newY = _startPosition.y + Mathf.Sin(Time.deltaTime * _idleFrequency) * _idleAmplitude;
-        transform.position = new Vector2(_startPosition.x, newY);
+        //float newY = _startPosition.y + Mathf.Sin(Time.deltaTime * _idleFrequency) * _idleAmplitude;
+        //transform.position = new Vector2(_startPosition.x, newY);
+        transform.Translate(-1 * transform.up * _itemMoveSpeed * Time.deltaTime);
     }
 
     protected void Move()
     {
         if (_isChase == false)
         {
-            transform.Translate(-1 * transform.up * _itemMoveSpeed * Time.deltaTime);
+            IdleMotion();
         }
         else
         {
