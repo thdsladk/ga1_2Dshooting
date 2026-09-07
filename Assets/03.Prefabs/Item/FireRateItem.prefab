@@ -48,12 +48,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   _itemMoveSpeed: 1
-  BuffScale: 0
-  Type: fireRateUp
+  BuffScale: 1
+  Type: 2
   _idleAmplitude: 0.2
   _idleFrequency: 2
   _applyRadius: 1
-  _startDelayTime: 3
+  _startDelayTime: 1
 --- !u!212 &2877812510724090874
 SpriteRenderer:
   serializedVersion: 2
@@ -148,7 +148,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 7
+  m_Radius: 0.5
 --- !u!50 &4642638196263155867
 Rigidbody2D:
   serializedVersion: 5

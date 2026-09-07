@@ -126,11 +126,14 @@ public class Item : InteractableObject
             {
                 case ItemType.Heal:
                 {
-                    player.Heal((-1f * BuffScale));
+                    player.Heal(BuffScale);
                     break;
                 }
                 case ItemType.MoveSpeed:
                 {
+                    // 캡슐화 : 
+                    // + 데이터 은닉(Speed 속성 private 처리)
+                    // + 행위를 통한 상태 변경 (SpeedUp 호출)
                     other.gameObject.GetComponent<PlayerMove>().SpeedUp(BuffScale);
                     break;
                 }
@@ -140,6 +143,8 @@ public class Item : InteractableObject
                     break;
                 }
             }
+
+            Destroy(gameObject);
         }
     }
 }
