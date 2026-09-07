@@ -15,16 +15,16 @@ using UnityEngine.Serialization;
 
 public class Item : InteractableObject
 {
-    [SerializeField] protected float _itemMoveSpeed = 1f;
-    public float BuffScale = 0f;
-    public ItemType Type;
+    [SerializeField] protected const float _itemMoveSpeed = 1f;
+    [SerializeField] private float _buffScale = 0f;
+    [SerializeField] private ItemType _type;
+    [SerializeField] private float _startDelayTime = 3f;
 
     // Idle Motion 관련 변수
     [SerializeField] private float _idleAmplitude = 0.2f; // 위아래 움직임 크기
     [SerializeField] private float _idleFrequency = 2f; // 움직임 속도
     [SerializeField] private float _applyRadius = 1f;
     private Vector2 _startPosition;
-    [SerializeField] private float _startDelayTime = 3f;
     private Player _player = null;
 
     private bool _isChase = false;
@@ -60,19 +60,25 @@ public class Item : InteractableObject
 
     protected void Move()
     {
-        if (_isChase == false)
+        //if (_isChase == false)
+        //{
+        //    IdleMotion();
+        //}
+        //else
         {
-            IdleMotion();
-        }
-        else
-        {
+            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
             if (_player != null)
             {
+                Debug.Log("이동!");
                 Vector2 direction = (_player.transform.position - transform.position).normalized;
 
                 float speedPerSecond = Time.deltaTime * _itemMoveSpeed;
                 float acceleration = Mathf.Lerp(_startPosition.x, _player.transform.position.x, speedPerSecond);
                 transform.Translate(direction * acceleration);
+            }
+            else
+            {
+                IdleMotion();
             }
         }
     }
@@ -122,11 +128,11 @@ public class Item : InteractableObject
                 Debug.LogWarning("플레이어 태그 오브젝트에 플레이어 컴포넌트가 없습니다.");
             }
 
-            switch (Type)
+            switch (_type)
             {
                 case ItemType.Heal:
                 {
-                    player.Heal(BuffScale);
+                    player.Heal(_buffScale);
                     break;
                 }
                 case ItemType.MoveSpeed:
@@ -134,12 +140,12 @@ public class Item : InteractableObject
                     // 캡슐화 : 
                     // + 데이터 은닉(Speed 속성 private 처리)
                     // + 행위를 통한 상태 변경 (SpeedUp 호출)
-                    other.gameObject.GetComponent<PlayerMove>().SpeedUp(BuffScale);
+                    other.gameObject.GetComponent<PlayerMove>().SpeedUp(_buffScale);
                     break;
                 }
                 case ItemType.FireRateUp:
                 {
-                    player.SetDamage(BuffScale);
+                    player.SetDamage(_buffScale);
                     break;
                 }
             }
