@@ -13,8 +13,10 @@ public class AimedEnemy : Enemy
             Debug.Log("플레이어 태그를 가진 게임 오브젝트를 찾지 못했습니다.");
         }
 
-        _direction = _player.transform.position - transform.position;
-        _direction.Normalize();
+        _direction = (_player.transform.position - transform.position).normalized;
+
+        //  바라보게 하기 
+        transform.up = -_direction;
     }
 
     protected override void Move()

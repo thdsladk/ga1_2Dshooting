@@ -24,5 +24,8 @@ public class HomingEnemy : Enemy
 
         // 2. 방향과 속도에 맞게 이동한다.
         transform.Translate(direction * _moveSpeed * Time.deltaTime);
+
+        // 3. 바라보게 하기 
+        transform.up = -direction;
     }
 }
