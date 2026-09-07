@@ -23,7 +23,7 @@ public class Item : InteractableObject
     [SerializeField] private float _idleFrequency = 2f; // 움직임 속도
     [SerializeField] private float _applyRadius = 1f;
     private Vector2 _startPosition;
-    private float _startDelayTime = 3f;
+    [SerializeField] private float _startDelayTime = 3f;
     private Player _player = null;
 
     private bool _isChase = false;
