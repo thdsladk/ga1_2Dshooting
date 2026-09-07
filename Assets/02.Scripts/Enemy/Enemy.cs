@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 public abstract class Enemy : MonoBehaviour
@@ -6,6 +8,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private int _health = 100;
     [SerializeField] protected float _moveSpeed;
     [SerializeField] protected int _damage;
+    [SerializeField] protected GameObject[] _Items;
 
     private void Update()
     {
@@ -29,6 +32,18 @@ public abstract class Enemy : MonoBehaviour
         return _damage;
     }
 
+    private void Death()
+    {
+        int persent = Random.Range(0, 10);
+        if (persent < 3)
+        {
+            int ItemIndex = Random.Range(0, 3);
+            Instantiate(_Items[ItemIndex], transform.position, transform.rotation);
+        }
+
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -42,7 +57,7 @@ public abstract class Enemy : MonoBehaviour
             // 플레이어
             player.TakeDamage(_damage);
             // 자신
-            Destroy(gameObject);
+            Death();
         }
     }
 }

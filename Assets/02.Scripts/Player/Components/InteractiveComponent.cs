@@ -15,4 +15,22 @@ public class InteractiveComponent : MonoBehaviour
     private void Update()
     {
     }
+
+    public void ApplyHeal(float applyScale)
+    {
+        
+    }
+    
+    public void ApplyAttackSpeed(float applyScale)
+    {
+        Player player = gameObject.GetComponent<Player>();
+        if (player != null)
+        {
+            
+        }
+    }
+    public void ApplyMoveSpeed(float applyScale)
+    {
+        
+    }
 }

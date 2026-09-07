@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /*
     아이템을 구현해주세요. (3가지 타입 - 모양과 컬러가 다르다.)
@@ -14,14 +15,15 @@ using UnityEngine;
 
 public class Item : InteractableObject
 {
-    [SerializeField] protected float _itemMoveSpeed = 0;
-    [SerializeField] protected float _buffScale = 0;
+    [SerializeField] protected float _itemMoveSpeed = 1f;
+    [SerializeField] protected float _buffScale = 0f;
 
     // Idle Motion 관련 변수
-    [SerializeField] private float idleAmplitude = 0.2f; // 위아래 움직임 크기
-    [SerializeField] private float idleFrequency = 2f; // 움직임 속도
-    [SerializeField] private float applyRadius = 1f;
+    [SerializeField] private float _idleAmplitude = 0.2f; // 위아래 움직임 크기
+    [SerializeField] private float _idleFrequency = 2f; // 움직임 속도
+    [SerializeField] private float _applyRadius = 1f;
     private Vector2 _startPosition;
+    private float _startDelayTime = 3f;
     private Player _player = null;
 
     private bool _isChase = false;
@@ -33,15 +35,31 @@ public class Item : InteractableObject
 
     private void Update()
     {
+        if (_startDelayTime > 0f)
+        {
+            _startDelayTime -= Time.deltaTime;
+        }
+        else
+        {
+            if (_isChase == false)
+            {
+                IdleMotion();
+            }
+            else
+            {
+                Move();
+            }
+        }
     }
 
+    public float GetItem
 
     /// <summary>
     /// 아이템을 위아래로 생동감 있게 움직이는 메서드
     /// </summary>
     private void IdleMotion()
     {
-        float newY = _startPosition.y + Mathf.Sin(Time.deltaTime * idleFrequency) * idleAmplitude;
+        float newY = _startPosition.y + Mathf.Sin(Time.deltaTime * _idleFrequency) * _idleAmplitude;
         transform.position = new Vector2(_startPosition.x, newY);
     }
 
@@ -79,10 +97,20 @@ public class Item : InteractableObject
         {
             if (_player != null)
             {
-                float Distance = Vector2.Distance(_player.transform.position, transform.position);
-                if (Distance < applyRadius)
+                Vector2 playerPosition = _player.transform.position;
+                Vector2 itemPosition = transform.position;
+                //Vector2 direction = (playerPosition - itemPosition).normalized;
+                float distance = Vector2.Distance(playerPosition, itemPosition);
+
+                if (distance <= _applyRadius)
                 {
-                    // ToDO 여기서 플레이어의 효과 적용 함수 호출
+                    float timer = 0f;
+                    timer += (_itemMoveSpeed * Time.deltaTime);
+                    transform.position = Vector2.Lerp(itemPosition, playerPosition, timer);
+                    //transform.Translate(Direction * Time.deltaTime * _itemMoveSpeed);
+                }
+                else
+                {
                 }
             }
         }
