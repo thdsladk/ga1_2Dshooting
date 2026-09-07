@@ -70,7 +70,6 @@ public class Item : InteractableObject
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
             if (_player != null)
             {
-                Debug.Log("이동!");
                 Vector2 direction = (_player.transform.position - transform.position).normalized;
 
                 float speedPerSecond = Time.deltaTime * _itemMoveSpeed;
@@ -84,40 +83,6 @@ public class Item : InteractableObject
         }
     }
 
-    //private void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        _player = other.gameObject.GetComponent<Player>();
-    //        _isChase = true;
-    //    }
-    //}
-
-    //private void OnTriggerStay2D(Collider2D other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        if (_player != null)
-    //        {
-    //            Vector2 playerPosition = _player.transform.position;
-    //            Vector2 itemPosition = transform.position;
-    //            //Vector2 direction = (playerPosition - itemPosition).normalized;
-    //            float distance = Vector2.Distance(playerPosition, itemPosition);
-    //
-    //            if (distance <= _applyRadius)
-    //            {
-    //                float timer = 0f;
-    //                timer += (_itemMoveSpeed * Time.deltaTime);
-    //                transform.position = Vector2.Lerp(itemPosition, playerPosition, timer);
-    //                //transform.Translate(Direction * Time.deltaTime * _itemMoveSpeed);
-    //            }
-    //            else
-    //            {
-    //            }
-    //        }
-    //    }
-    //}
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         // 여기서는 아이템 값을 받고 아이템 오브젝트를 소멸 
@@ -129,8 +94,14 @@ public class Item : InteractableObject
                 Debug.LogWarning("플레이어 태그 오브젝트에 플레이어 컴포넌트가 없습니다.");
             }
 
+            // 대력 타입이 7개 이상이면 상속으로 구현해라. 
             switch (_type)
             {
+                // 심화 과제 1. 퍼사드 패턴 ( 패턴 이란 : 객체지향에서 자주 일어나는 설계 문제를 잘 풀어내도록 경험에 의해 정리한 공식 )
+                // 심화 과제 2. 컴포지드 패턴 ( 아이템 종류가 조합에 의해 폭발적으로 증가할 경우  조합 패턴 사용 ) 
+                // 포트폴리오에서 가장 중요한게 게임 구현 완성도 ( 코드의 완성도는 가장 후순위 ) 
+                // - 게임 개발은 내가 생각한 바를 먼저 구현할 수 있는가 
+                // !!! 구현 가능 불가능이 코드 완성도 "보다"는 중요하다 !!! [ 완성도 만을 위해서 구현을 못하는 문제는 회피하자 ] 
                 case ItemType.Heal:
                 {
                     player.Heal(_buffScale);

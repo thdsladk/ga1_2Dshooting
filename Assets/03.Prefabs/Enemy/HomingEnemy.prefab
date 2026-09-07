@@ -182,3 +182,7 @@ MonoBehaviour:
   _health: 100
   _moveSpeed: 2
   _damage: 1
+  _Items:
+  - {fileID: 1084892122952875192, guid: 5b439dc5a8049714295a59d32c3a6661, type: 3}
+  - {fileID: 8277417799759893775, guid: 5c598af308e7e754ab683bf73ca9d33c, type: 3}
+  - {fileID: 4658600895123271729, guid: 4435a88d7542a4644baa2971d5c918ba, type: 3}

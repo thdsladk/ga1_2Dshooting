@@ -10,6 +10,9 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected int _damage;
     [SerializeField] protected GameObject[] _Items;
 
+    // - 생성할 프리팹
+    [Header("생성할 적 프리팹")] [SerializeField] private Item[] _itemPrefabs;
+
     private void Update()
     {
         Move();
@@ -23,8 +26,16 @@ public abstract class Enemy : MonoBehaviour
         _health -= damage;
         if (_health <= 0)
         {
+            SpawnItem();
             Destroy(gameObject);
         }
+    }
+
+    private void SpawnItem()
+    {
+        if (Random.Range(0, 100) >= 30) return;
+        Instantiate(_itemPrefabs[Random.Range(0, 3)], transform.position, transform.rotation);
+        Debug.Log("아이템!!!!");
     }
 
     public int GetDamage()
@@ -34,6 +45,12 @@ public abstract class Enemy : MonoBehaviour
 
     private void Death()
     {
+        // 단점
+        // 1. 세팅한 사람만 알고 뭐가 어떤 프리팹이 들어 있는지 모른다.
+        // 2. 각 적 스폰 확률을 매직 넘버로 하드 코딩해서 유지보수가 어렵다.
+        // 그래서 !!!!! 
+        // Todo: Scriptable Object 를 사용해서 리팩토링
+        //
         int persent = Random.Range(0, 10);
         if (persent < 3)
         {
