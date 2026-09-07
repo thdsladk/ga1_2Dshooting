@@ -32,6 +32,7 @@ public class Item : InteractableObject
 
     private void Start()
     {
+        _startPosition = transform.position;
     }
 
     private void Update()
