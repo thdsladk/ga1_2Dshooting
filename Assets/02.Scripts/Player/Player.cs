@@ -25,14 +25,29 @@ public class Player : MonoBehaviour
         return _interactableComponent;
     }
 
+    public void Heal(float healAmount)
+    {
+        if (healAmount < 0)
+        {
+            Debug.LogWarning("힐량은 음수 불가");
+        }
+
+        _health += healAmount;
+    }
+
     public void SetHealth(float health)
     {
         _health = health;
     }
 
+    public float GetDamage(float damage)
+    {
+        return damage;
+    }
+
     public void SetDamage(float damage)
     {
-        _health = damage;
+        _damage = damage;
     }
 
     public void SetAttackSpeed(float attackSpeed)
@@ -40,50 +55,20 @@ public class Player : MonoBehaviour
         _attackSpeed = attackSpeed;
     }
 
-    public void SetMoveSpeed(float moveSpeed)
-    {
-        // 접근이 위험 하다.
-        GetComponent<PlayerMove>().Speed = moveSpeed;
-    }
 
     public void TakeDamage(int damage)
     {
-        _health -= damage;
-        if (_health <= 0)
+        if (damage > 0)
         {
-            Destroy(gameObject);
+            _health -= damage;
+            if (_health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // 여기서는 아이템 값을 받고 아이템 오브젝트를 소멸 
-        if (other.CompareTag("Item"))
+        else
         {
-            Item item = other.gameObject.GetComponent<Item>();
-            if (item == null)
-            {
-                Debug.LogWarning("아이템 태그 오브젝트에 아이템 컴포넌트가 없습니다.");
-            }
-
-            switch (item.Type)
-            {
-                case "heal":
-                {
-                    _health += item.BuffScale;
-                    break;
-                }
-                case "moveSpeedUp":
-                {
-                    GetComponent<PlayerMove>().Speed += item.BuffScale;
-                    break;
-                }
-                case "fireRateUp":
-                {
-                    _damage += item.BuffScale;
-                    break;
-                }
-            }
+            Debug.LogWarning("데미지는 음수 불가");
         }
     }
 }

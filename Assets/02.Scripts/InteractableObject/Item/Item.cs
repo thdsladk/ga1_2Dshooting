@@ -17,7 +17,7 @@ public class Item : InteractableObject
 {
     [SerializeField] protected float _itemMoveSpeed = 1f;
     public float BuffScale = 0f;
-    public string Type;
+    public ItemType Type;
 
     // Idle Motion 관련 변수
     [SerializeField] private float _idleAmplitude = 0.2f; // 위아래 움직임 크기
@@ -77,35 +77,67 @@ public class Item : InteractableObject
         }
     }
 
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        _player = other.gameObject.GetComponent<Player>();
+    //        _isChase = true;
+    //    }
+    //}
+
+    //private void OnTriggerStay2D(Collider2D other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        if (_player != null)
+    //        {
+    //            Vector2 playerPosition = _player.transform.position;
+    //            Vector2 itemPosition = transform.position;
+    //            //Vector2 direction = (playerPosition - itemPosition).normalized;
+    //            float distance = Vector2.Distance(playerPosition, itemPosition);
+    //
+    //            if (distance <= _applyRadius)
+    //            {
+    //                float timer = 0f;
+    //                timer += (_itemMoveSpeed * Time.deltaTime);
+    //                transform.position = Vector2.Lerp(itemPosition, playerPosition, timer);
+    //                //transform.Translate(Direction * Time.deltaTime * _itemMoveSpeed);
+    //            }
+    //            else
+    //            {
+    //            }
+    //        }
+    //    }
+    //}
+
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // 여기서는 아이템 값을 받고 아이템 오브젝트를 소멸 
         if (other.CompareTag("Player"))
         {
-            _player = other.gameObject.GetComponent<Player>();
-            _isChase = true;
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (_player != null)
+            Player player = other.gameObject.GetComponent<Player>();
+            if (player == null)
             {
-                Vector2 playerPosition = _player.transform.position;
-                Vector2 itemPosition = transform.position;
-                //Vector2 direction = (playerPosition - itemPosition).normalized;
-                float distance = Vector2.Distance(playerPosition, itemPosition);
+                Debug.LogWarning("플레이어 태그 오브젝트에 플레이어 컴포넌트가 없습니다.");
+            }
 
-                if (distance <= _applyRadius)
+            switch (Type)
+            {
+                case ItemType.Heal:
                 {
-                    float timer = 0f;
-                    timer += (_itemMoveSpeed * Time.deltaTime);
-                    transform.position = Vector2.Lerp(itemPosition, playerPosition, timer);
-                    //transform.Translate(Direction * Time.deltaTime * _itemMoveSpeed);
+                    player.Heal((-1f * BuffScale));
+                    break;
                 }
-                else
+                case ItemType.MoveSpeed:
                 {
+                    other.gameObject.GetComponent<PlayerMove>().SpeedUp(BuffScale);
+                    break;
+                }
+                case ItemType.FireRateUp:
+                {
+                    player.SetDamage(BuffScale);
+                    break;
                 }
             }
         }
