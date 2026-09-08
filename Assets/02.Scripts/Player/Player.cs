@@ -1,31 +1,34 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _health;
-    [SerializeField] private float _damage;
+    [SerializeField] private float _attackRate;
     [SerializeField] private float _attackSpeed = 1f;
 
     // 멤버 컴포넌트 자리
     [SerializeField] private InteractiveComponent _interactableComponent;
     //[SerializeField] private PlayerMove _playerMove;
 
-    //private void Start()
+    // C#의 프로퍼티 문법
+    //public float Health
     //{
+    //    get => _health;
+    //    //set => _health = value;
+    //    //get {retrun _health;}
+    //    
     //}
-
-    //private void Update()
-    //{
-    //}
+    public float Health => _health; // 람다식 문법 ( 프로퍼티 ) 
 
     public InteractiveComponent GetInteractiveComponent()
     {
         return _interactableComponent;
     }
 
-    public void Heal(float healAmount)
+    public void Heal(float healAmount)      // 도메인 지향 메세지 
     {
         if (healAmount < 0)
         {
@@ -35,19 +38,31 @@ public class Player : MonoBehaviour
         _health += healAmount;
     }
 
-    public void SetHealth(float health)
-    {
-        _health = health;
-    }
+    // 잘 설계된 클래스는 
+    // - 필드  ( 인스턴스 변수)
+    // - 필드에 잘못된 값이 할당되지 않게 막고, 정상적으로 동작하는 메서드 
+    //public void SetHealth(float health)     // 기술 지향 메서드 
+    //{
+    //    // 무결성 검사를 해야 한다.
+    //    // 무결성 : 잘못된 데이터가 들어가지 않게 하는 것
+    //    // - 최대 체력보다 체력은 적어야 한다.
+    //
+    //    _health = health;
+    //}
+    //public float GetHealth()
+    //{
+    //    return _health;
+    //}
 
     public float GetDamage(float damage)
     {
+        
         return damage;
     }
 
     public void SetDamage(float damage)
     {
-        _damage = damage;
+        _attackRate = damage;
     }
 
     public void SetAttackSpeed(float attackSpeed)

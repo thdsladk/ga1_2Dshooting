@@ -31,6 +31,11 @@ public class PlayerMove : MonoBehaviour
         SpeedChange();
     }
 
+    public float GetSpeed()
+    {
+        return _speed;
+    }
+    
     public void SpeedUp(float upValue)
     {
         if (upValue < 0)
