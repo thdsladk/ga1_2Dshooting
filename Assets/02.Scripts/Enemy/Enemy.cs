@@ -14,6 +14,10 @@ public abstract class Enemy : MonoBehaviour
     // - 생성할 프리팹
     [Header("생성할 적 프리팹")] [SerializeField] private Item[] _itemPrefabs;
 
+    // - 죽을때 생성할 이펙트 프리펩
+    [SerializeField] private GameObject _deathEffectPrefab;
+
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -33,8 +37,7 @@ public abstract class Enemy : MonoBehaviour
         _animator.SetTrigger("Hit");
         if (_health <= 0)
         {
-            SpawnItem();
-            Destroy(gameObject);
+            Death();
         }
     }
 
@@ -42,12 +45,7 @@ public abstract class Enemy : MonoBehaviour
     {
         if (Random.Range(0, 100) >= 30) return;
         Instantiate(_itemPrefabs[Random.Range(0, 3)], transform.position, transform.rotation);
-        Debug.Log("아이템!!!!");
-    }
-
-    public int GetDamage()
-    {
-        return _damage;
+        //Debug.Log("아이템!!!!");
     }
 
     private void Death()
@@ -58,8 +56,15 @@ public abstract class Enemy : MonoBehaviour
         // 그래서 !!!!! 
         // Todo: Scriptable Object 를 사용해서 리팩토링
         //
+
         SpawnItem();
+        SpawnDeathEffect();
         Destroy(gameObject);
+    }
+
+    private void SpawnDeathEffect()
+    {
+        Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

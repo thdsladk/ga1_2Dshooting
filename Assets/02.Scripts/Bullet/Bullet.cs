@@ -18,9 +18,6 @@ public class Bullet : MonoBehaviour
     // 트리거 관련 이벤트
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // 나죽고!
-        Destroy(this.gameObject);
-
         // 충돌한 친구가 Enemy일때만 죽여쁠자!
         if (other.gameObject.CompareTag("Enemy"))
         {
@@ -37,16 +34,9 @@ public class Bullet : MonoBehaviour
             // 방어력 검사.. 
             enemy.TakeDamage(Damage);
         }
-    }
 
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        //Debug.Log("충돌중이다.!");
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        // Debug.Log("충돌이 끝났다.!");
+        // 나죽고!
+        Destroy(this.gameObject);
     }
 }

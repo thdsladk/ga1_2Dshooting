@@ -11,7 +11,14 @@ public class Player : MonoBehaviour
 
     // 멤버 컴포넌트 자리
     [SerializeField] private InteractiveComponent _interactableComponent;
-    //[SerializeField] private PlayerMove _playerMove;
+
+    // Effect Section
+    // - 죽을때 생성할 이펙트 프리펩
+    [SerializeField] private GameObject _deathEffectPrefab;
+
+
+    [SerializeField] private Transform  _LeftFirePoint;
+    [SerializeField] private Transform  _RightFirePoint;
 
     // C#의 프로퍼티 문법
     //public float Health
@@ -28,7 +35,7 @@ public class Player : MonoBehaviour
         return _interactableComponent;
     }
 
-    public void Heal(float healAmount)      // 도메인 지향 메세지 
+    public void Heal(float healAmount) // 도메인 지향 메세지 
     {
         if (healAmount < 0)
         {
@@ -56,7 +63,6 @@ public class Player : MonoBehaviour
 
     public float GetDamage(float damage)
     {
-        
         return damage;
     }
 
@@ -78,12 +84,21 @@ public class Player : MonoBehaviour
             _health -= damage;
             if (_health <= 0)
             {
-                Destroy(gameObject);
+                Death();
             }
         }
         else
         {
             Debug.LogWarning("데미지는 음수 불가");
         }
+    }
+
+    private void Death()
+    {
+        // Effet 
+        Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
+
+        // Destroy
+        Destroy(gameObject);
     }
 }

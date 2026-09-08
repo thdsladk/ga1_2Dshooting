@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.22, y: 3.92, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,6 +54,8 @@ MonoBehaviour:
   _idleAmplitude: 0.2
   _idleFrequency: 2
   _applyRadius: 1
+  _receiveEffectPrefab: {fileID: 9157105887711914197, guid: c4f829cb7dd4b864caf8832ec5b1ee55, type: 3}
+  _ShinyEffectPrefab: {fileID: 1652143759095011289, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
 --- !u!212 &2877812510724090874
 SpriteRenderer:
   serializedVersion: 2

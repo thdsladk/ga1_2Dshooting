@@ -34,15 +34,30 @@ public class Item : InteractableObject
     private float _elapsed = 0f;
     private float _moveDuration = 3f;
 
+    // Effect 
+    [SerializeField] private GameObject _receiveEffectPrefab;
+    [SerializeField] private GameObject _ShinyEffectPrefab;
+
+    // EffectInstance
+    private GameObject _receiveEffectInstance;
+
 
     private void Start()
     {
         _startPosition = transform.position;
+
+        // 시작 하자마자 빛나도록 처리.
+        _receiveEffectInstance = Instantiate(_ShinyEffectPrefab, transform.position, Quaternion.identity);
     }
 
     private void Update()
     {
         Move();
+
+        if (_receiveEffectInstance != null)
+        {
+            _receiveEffectInstance.transform.position = transform.position;
+        }
     }
 
     //public float GetItem
@@ -100,6 +115,11 @@ public class Item : InteractableObject
                 Debug.LogWarning("플레이어 태그 오브젝트에 플레이어 컴포넌트가 없습니다.");
             }
 
+            // Effect Section 
+            Instantiate(_receiveEffectPrefab, transform.position, Quaternion.identity);
+            // Sniny Effect Instance Free
+            Destroy(_receiveEffectInstance);
+
             // 대력 타입이 7개 이상이면 상속으로 구현해라. 
             switch (_type)
             {
@@ -142,7 +162,7 @@ public class Item : InteractableObject
 
         // t 값 (0 ~ 1)
         _elapsed += Time.deltaTime;
-        float t = Mathf.Clamp01(_elapsed / (_moveDuration/2f));
+        float t = Mathf.Clamp01(_elapsed / (_moveDuration / 2f));
 
         // 베지어 곡선 공식 (Quadratic Bezier)
         Vector2 bezierPosistion = Mathf.Pow(1 - t, 2) * startPoint

@@ -184,9 +184,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _health: 10
-  _damage: 100
+  _attackRate: 0
   _attackSpeed: 1
   _interactableComponent: {fileID: 0}
+  _deathEffectPrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+  _LeftTrailPrefab: {fileID: 2360655870356088562, guid: 57a776ff377f3c44e8403e2067a4d41f, type: 3}
+  _RightTrailPrefab: {fileID: 3802302459956397560, guid: b3416c8b2e3c7804b8c061dc4a36fc43, type: 3}
 --- !u!60 &-7584759916448562988
 PolygonCollider2D:
   m_ObjectHideFlags: 0
