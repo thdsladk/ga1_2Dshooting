@@ -15,6 +15,7 @@ using UnityEngine.Serialization;
 
 public class Item : InteractableObject
 {
+    protected const float _maxMoveSpeed = 6f;
     [SerializeField] protected const float _itemMoveSpeed = 1f;
     [SerializeField] private float _buffScale = 0f;
     [SerializeField] private ItemType _type;
@@ -29,6 +30,10 @@ public class Item : InteractableObject
 
     private bool _isChase = false;
 
+    // 베지어 곡선 관련 함수
+    private float _elapsed = 0f;
+    private float _moveDuration = 3f;
+
 
     private void Start()
     {
@@ -37,14 +42,7 @@ public class Item : InteractableObject
 
     private void Update()
     {
-        if (_startDelayTime > 0f)
-        {
-            _startDelayTime -= Time.deltaTime;
-        }
-        else
-        {
-            Move();
-        }
+        Move();
     }
 
     //public float GetItem
@@ -61,24 +59,32 @@ public class Item : InteractableObject
 
     protected void Move()
     {
-        //if (_isChase == false)
-        //{
-        //    IdleMotion();
-        //}
-        //else
+        if (_startDelayTime > 0f)
+        {
+            // 시작 딜레이 N초 동안은 아래로 이동
+            _startDelayTime -= Time.deltaTime;
+            IdleMotion();
+        }
+        else
         {
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
             if (_player != null)
             {
-                Vector2 direction = (_player.transform.position - transform.position).normalized;
+                Vector2 center = (_player.transform.position + transform.position) / 2f;
+                float curveSign = 1f;
+                if (_elapsed < 1.5f)
+                {
+                    CalculateBezierCurve(transform.position, center, curveSign);
+                }
+                else
+                {
+                    CalculateBezierCurve(center, _player.transform.position, -curveSign);
+                }
 
-                float speedPerSecond = Time.deltaTime * _itemMoveSpeed;
-                float acceleration = Mathf.Lerp(_startPosition.x, _player.transform.position.x, speedPerSecond);
-                transform.Translate(direction * acceleration);
-            }
-            else
-            {
-                IdleMotion();
+                if (_elapsed > _moveDuration)
+                {
+                    _elapsed = 0f;
+                }
             }
         }
     }
@@ -124,5 +130,26 @@ public class Item : InteractableObject
 
             Destroy(gameObject);
         }
+    }
+
+    private void CalculateBezierCurve(Vector2 startPoint, Vector2 endPoint, float curveDirectionX = 1f)
+    {
+        // 시작점, 제어점, 끝점 정의
+        Vector2 direction = (endPoint - startPoint);
+        Vector2 normal = new Vector2((-direction.y * curveDirectionX), direction.x).normalized;
+        float curveScale = 3f;
+        Vector2 controlPoint = (direction / 2f) + (normal * curveScale); // 중간 제어점
+
+        // t 값 (0 ~ 1)
+        _elapsed += Time.deltaTime;
+        float t = Mathf.Clamp01(_elapsed / (_moveDuration/2f));
+
+        // 베지어 곡선 공식 (Quadratic Bezier)
+        Vector2 bezierPosistion = Mathf.Pow(1 - t, 2) * startPoint
+                                  + 2 * (1 - t) * t * controlPoint
+                                  + Mathf.Pow(t, 2) * endPoint;
+
+        // 오브젝트 위치 갱신
+        transform.position = bezierPosistion;
     }
 }

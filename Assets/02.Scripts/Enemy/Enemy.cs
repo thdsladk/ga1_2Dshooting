@@ -7,11 +7,17 @@ public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] private int _health = 100;
     [SerializeField] protected float _moveSpeed;
+
     [SerializeField] protected int _damage;
-    [SerializeField] protected GameObject[] _Items;
+    private Animator _animator;
 
     // - 생성할 프리팹
     [Header("생성할 적 프리팹")] [SerializeField] private Item[] _itemPrefabs;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -24,6 +30,7 @@ public abstract class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _health -= damage;
+        _animator.SetTrigger("Hit");
         if (_health <= 0)
         {
             SpawnItem();
@@ -51,13 +58,7 @@ public abstract class Enemy : MonoBehaviour
         // 그래서 !!!!! 
         // Todo: Scriptable Object 를 사용해서 리팩토링
         //
-        int persent = Random.Range(0, 10);
-        if (persent < 3)
-        {
-            int ItemIndex = Random.Range(0, 3);
-            Instantiate(_Items[ItemIndex], transform.position, transform.rotation);
-        }
-
+        SpawnItem();
         Destroy(gameObject);
     }
 
