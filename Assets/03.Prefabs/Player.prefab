@@ -150,6 +150,8 @@ MonoBehaviour:
   MinPositionY: -4.5
   MaxPositionX: 2.5
   MinPositionX: -2.5
+  _LefttrailRenderer: {fileID: 0}
+  _RighttrailRenderer: {fileID: 0}
 --- !u!114 &3835854714322593080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,12 +166,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFire
   BulletPrefab: {fileID: 4418343509438949766, guid: 4bd05b3549a57f34b9fa2687d3add50e, type: 3}
   SubBulletPrefab: {fileID: 8908369644798092637, guid: 5c4809008018c24408cfcf84d6cf21a0, type: 3}
+  _boomPrefab: {fileID: -2882208890338602289, guid: ec2c9efeb8eff204299fa02bcdb0e7df, type: 3}
+  _boomFailPrefab: {fileID: 1429954232896169633, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
   LeftFirePoint: {fileID: 5441265037469692053}
   RightFirePoint: {fileID: 1278329849039281786}
   SubLeftFirePoint: {fileID: 6846739366891795648}
   SubRightFirePoint: {fileID: 1793563600523573759}
+  _boomAmount: 3
   CoolTime: 0.1
   CoolTimer: 0
+  _boomCooldown: 10
+  _boomTimer: 0
   AutoFireMode: 0
 --- !u!114 &6475474489786438046
 MonoBehaviour:
@@ -188,8 +195,8 @@ MonoBehaviour:
   _attackSpeed: 1
   _interactableComponent: {fileID: 0}
   _deathEffectPrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
-  _LeftTrailPrefab: {fileID: 2360655870356088562, guid: 57a776ff377f3c44e8403e2067a4d41f, type: 3}
-  _RightTrailPrefab: {fileID: 3802302459956397560, guid: b3416c8b2e3c7804b8c061dc4a36fc43, type: 3}
+  _LeftFirePoint: {fileID: 0}
+  _RightFirePoint: {fileID: 0}
 --- !u!60 &-7584759916448562988
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerFire : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class PlayerFire : MonoBehaviour
     public GameObject BulletPrefab;
     public GameObject SubBulletPrefab;
 
+    [SerializeField] private Boom _boomPrefab;
+    [SerializeField] private GameObject _boomFailPrefab;
+
 
     // - 생성 위치(총구)
     public Transform LeftFirePoint;
@@ -15,10 +19,15 @@ public class PlayerFire : MonoBehaviour
     public Transform SubLeftFirePoint;
     public Transform SubRightFirePoint;
 
+    // Count 
+    [SerializeField] private int _boomAmount = 3;
 
     // - 쿨타이머
     public float CoolTime = 0.5f;
     public float CoolTimer = 0;
+
+    [SerializeField] float _boomCooldown = 3;
+    [SerializeField] float _boomTimer = 0f;
 
     // - 오토 모드
     public bool AutoFireMode = false;
@@ -49,6 +58,17 @@ public class PlayerFire : MonoBehaviour
             // 3. 쿨타이머 초기화
             CoolTimer = CoolTime;
         }
+
+        if (_boomTimer > 0)
+        {
+            _boomTimer -= Time.deltaTime;
+        }
+
+        // Boom Check
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            Boom();
+        }
     }
 
     private void Fire()
@@ -66,5 +86,20 @@ public class PlayerFire : MonoBehaviour
 
         GameObject SubrightBullet = Instantiate(SubBulletPrefab);
         SubrightBullet.transform.position = SubRightFirePoint.position; // 생성한 총알의 위치를 총구의 위치로
+    }
+
+    private void Boom()
+    {
+        if (_boomAmount > 0 && _boomTimer <= 0)
+        {
+            // Cooldown Setting
+            _boomTimer = _boomCooldown;
+            // boom Create
+            Instantiate(_boomPrefab, gameObject.transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("폭탄이 없거나 쿨다운이 돌고 있습니다.");
+        }
     }
 }
