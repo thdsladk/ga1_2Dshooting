@@ -17,6 +17,9 @@ public class PlayerMove : MonoBehaviour
     public float MaxPositionX;
     public float MinPositionX;
 
+    [SerializeField] private TrailRenderer _LefttrailRenderer;
+    [SerializeField] private TrailRenderer _RighttrailRenderer;
+
     private void Awake()
     {
         // 애니메이터 컴포넌트에 대한 참조를 가져와서 할당한다.
@@ -35,7 +38,7 @@ public class PlayerMove : MonoBehaviour
     {
         return _speed;
     }
-    
+
     public void SpeedUp(float upValue)
     {
         if (upValue < 0)
@@ -69,6 +72,23 @@ public class PlayerMove : MonoBehaviour
 
         // 2. 키보드 입력에 따라 방향을 구한다.
         Vector2 normalizedDirection = new Vector2(h, v).normalized;
+
+        if (normalizedDirection.y > 0)
+        {
+            if (_LefttrailRenderer != null && _RighttrailRenderer != null)
+            {
+                _LefttrailRenderer.emitting = true;
+                _RighttrailRenderer.emitting = true;
+            }
+        }
+        else
+        {
+            if (_LefttrailRenderer != null && _RighttrailRenderer != null)
+            {
+                _LefttrailRenderer.emitting = false;
+                _RighttrailRenderer.emitting = false;
+            }
+        }
 
         _animator.SetInteger("X", (int)normalizedDirection.x);
 
