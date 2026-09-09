@@ -149,8 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.8867924, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 2, y: -2}
+  m_EffectColor: {r: 0.8867924, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 3, y: -3}
   m_UseGraphicAlpha: 1
 --- !u!212 &32976621
 SpriteRenderer:
@@ -202,7 +202,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.12156863}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -800,7 +800,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 000000004de95f7345b47dc1bf84b923198010eacf53f2be57950c7a
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1573,6 +1573,79 @@ PrefabInstance:
       addedObject: {fileID: 1940515912}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99dff084d9e44b04b8a6e2ec452bb1eb, type: 3}
+--- !u!1001 &4211293165116317366
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1278276532710676820, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278276532710676820, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.030000687
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278276532710676820, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278276532710676820, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278276532710676820, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278276532710676820, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278276532710676820, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278276532710676820, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278276532710676820, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278276532710676820, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706450681972946324, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2a4d89a97c5226d4fa7c9d72a5ccbdfd, type: 3}
+    - target: {fileID: 3706450681972946324, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706450681972946324, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706450681972946324, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b8a2397effb13e4b900d94110d6ade9, type: 2}
+    - target: {fileID: 4606483368444169862, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
+      propertyPath: m_Name
+      value: Background
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cbd2136bcd9b19449b27a16e472c06fd, type: 3}
 --- !u!1001 &6338158802417044359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1649,3 +1722,4 @@ SceneRoots:
   - {fileID: 1846211911}
   - {fileID: 179633289}
   - {fileID: 562033783}
+  - {fileID: 4211293165116317366}
