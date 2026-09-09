@@ -17,10 +17,15 @@ public abstract class Enemy : MonoBehaviour
     // - 죽을때 생성할 이펙트 프리펩
     [SerializeField] private GameObject _deathEffectPrefab;
 
+    private AudioSource _damagedAudioSource;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        if (_damagedAudioSource != null)
+        {
+            _damagedAudioSource = GetComponent<AudioSource>();
+        }
     }
 
     private void Update()
@@ -35,6 +40,12 @@ public abstract class Enemy : MonoBehaviour
     {
         _health -= damage;
         _animator.SetTrigger("Hit");
+        // 데미지 입을때 마다. 
+        if (_damagedAudioSource != null)
+        {
+            _damagedAudioSource.Play();
+        }
+
         if (_health <= 0)
         {
             Death();
@@ -59,6 +70,8 @@ public abstract class Enemy : MonoBehaviour
 
         SpawnItem();
         SpawnDeathEffect();
+
+
         Destroy(gameObject);
     }
 
