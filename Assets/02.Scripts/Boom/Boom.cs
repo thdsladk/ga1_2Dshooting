@@ -10,11 +10,16 @@ public class Boom : InteractableObject
     private float _attackRate = 1000f;
 
     private Animator _animator;
+    private CircleCollider2D _collider;
 
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _collider = GetComponent<CircleCollider2D>();
+
+        // 초기 설정
+        _collider.isTrigger = false;
     }
 
 
@@ -54,23 +59,27 @@ public class Boom : InteractableObject
     private void Explosion()
     {
         _isExploding = true;
-        Debug.Log(" 팡!!!!");
 
         // 크기 복구
         transform.localScale = Vector3.one * 2f;
 
+        // 충돌 활성화 
+        _collider.isTrigger = true;
         // 폭발 애니메이션 재생.
         _animator.SetTrigger("Boomming");
     }
 
     private void EndExplosion()
     {
+        // 충돌 비활성화
+        _collider.isTrigger = false;
+
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             if (enemy != null)
