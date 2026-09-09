@@ -41,6 +41,12 @@ public class Item : InteractableObject
     // EffectInstance
     private GameObject _receiveEffectInstance;
 
+    // Audio
+    private AudioSource _GettingAudioSource;
+
+    private void Awake()
+    {
+    }
 
     private void Start()
     {
@@ -119,6 +125,9 @@ public class Item : InteractableObject
             Instantiate(_receiveEffectPrefab, transform.position, Quaternion.identity);
             // Sniny Effect Instance Free
             Destroy(_receiveEffectInstance);
+
+            // Play Audio   // 플레이어가 사운드 내도록 보내자. 
+            player.PlayItemGetting();
 
             // 대력 타입이 7개 이상이면 상속으로 구현해라. 
             switch (_type)

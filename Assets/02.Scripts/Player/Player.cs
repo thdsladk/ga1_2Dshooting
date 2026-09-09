@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform _LeftFirePoint;
     [SerializeField] private Transform _RightFirePoint;
 
+    [SerializeField] private AudioSource _itemGettingAudioSource;
+    [SerializeField] private AudioSource _damagedAudioSource;
+
     // C#의 프로퍼티 문법
     //public float Health
     //{
@@ -34,6 +37,14 @@ public class Player : MonoBehaviour
     public InteractiveComponent GetInteractiveComponent()
     {
         return _interactableComponent;
+    }
+
+    private void Awake()
+    {
+        //if (_itemGettingAudioSource != null)
+        //{
+        //    _itemGettingAudioSource = GetComponent<AudioSource>();
+        //}
     }
 
     private void Start()
@@ -91,6 +102,9 @@ public class Player : MonoBehaviour
     {
         if (damage > 0)
         {
+            // Audio Damaged
+            _damagedAudioSource.Play();
+
             _health -= damage;
             if (_health <= 0)
             {
@@ -110,5 +124,10 @@ public class Player : MonoBehaviour
 
         // Destroy
         Destroy(gameObject);
+    }
+
+    public void PlayItemGetting()
+    {
+        _itemGettingAudioSource.Play();
     }
 }
