@@ -195,6 +195,7 @@ MonoBehaviour:
   _attackSpeed: 1
   _interactableComponent: {fileID: 0}
   _deathEffectPrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+  _FighterTrailEffectPrefab: {fileID: 0}
   _LeftFirePoint: {fileID: 0}
   _RightFirePoint: {fileID: 0}
 --- !u!60 &-7584759916448562988

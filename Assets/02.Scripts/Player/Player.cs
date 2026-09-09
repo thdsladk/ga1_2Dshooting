@@ -15,10 +15,11 @@ public class Player : MonoBehaviour
     // Effect Section
     // - 죽을때 생성할 이펙트 프리펩
     [SerializeField] private GameObject _deathEffectPrefab;
+    [SerializeField] private GameObject _FighterTrailEffectPrefab;
 
 
-    [SerializeField] private Transform  _LeftFirePoint;
-    [SerializeField] private Transform  _RightFirePoint;
+    [SerializeField] private Transform _LeftFirePoint;
+    [SerializeField] private Transform _RightFirePoint;
 
     // C#의 프로퍼티 문법
     //public float Health
@@ -33,6 +34,15 @@ public class Player : MonoBehaviour
     public InteractiveComponent GetInteractiveComponent()
     {
         return _interactableComponent;
+    }
+
+    private void Start()
+    {
+        // Fighter Trail 
+        if (_FighterTrailEffectPrefab != null)
+        {
+            Instantiate(_FighterTrailEffectPrefab, transform.position, transform.rotation);
+        }
     }
 
     public void Heal(float healAmount) // 도메인 지향 메세지 

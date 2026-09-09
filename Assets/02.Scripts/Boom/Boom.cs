@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Boom : InteractableObject
 {
-    private float _lifeCycle = 3f;
-    private float _BoomCycle = 3f;
+    [SerializeField] private float _lifeCycle = 1f;
+    [SerializeField] private float _BoomCycle = 3f;
     private float _timer = 0f;
     private bool _isExploding = false;
 
