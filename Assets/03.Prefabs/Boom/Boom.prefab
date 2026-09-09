@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -7734038346003205378}
   - component: {fileID: -2142229213979415592}
   - component: {fileID: -5623841348921209551}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Boom
   m_TagString: Untagged
   m_Icon: {fileID: 0}

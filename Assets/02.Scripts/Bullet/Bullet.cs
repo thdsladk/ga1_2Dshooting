@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = System.Random;
 
 public class Bullet : MonoBehaviour
 {
@@ -8,6 +9,22 @@ public class Bullet : MonoBehaviour
     public float MoveSpeed;
     public int Damage;
 
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource != null)
+        {
+            _audioSource.pitch = UnityEngine.Random.Range(-0.8f, 2.5f);
+            _audioSource.volume = UnityEngine.Random.Range(0.8f, 1.0f);
+        }
+    }
+
+    private void Start()
+    {
+        _audioSource.Play();
+    }
 
     private void Update()
     {
