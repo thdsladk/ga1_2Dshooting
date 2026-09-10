@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerAutoMove : MonoBehaviour
 {
     private GameObject[] _enemyArray;
+    private GameObject _target;
 
     [SerializeField] private float _moveSpeed = 5f;
 
@@ -16,8 +17,16 @@ public class PlayerAutoMove : MonoBehaviour
     private void Update()
     {
         // 1. 타겟을 구한다.
-        SearchEnemy();
+        if (_target == null)
+        {
+            SearchEnemy();
+        }
 
+        Move();
+    }
+
+    private void Move()
+    {
         // 2. 방향을 구한다.
         Vector3 direction = _enemyArray[0].transform.position - transform.position;
         direction.Normalize();
@@ -30,6 +39,7 @@ public class PlayerAutoMove : MonoBehaviour
     private void SearchEnemy()
     {
         _enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
+        _target = _enemyArray[0];
         Array.Sort(_enemyArray, (a, b) =>
         {
             float distA = Vector3.Distance(transform.position, a.transform.position);
