@@ -39,11 +39,14 @@ public class ScoreManager : MonoBehaviour
         {
             _bestScore = _currentScore;
         }
+        
+        // UI 갱신 
+        Refresh();
     }
 
     private void Update()
     {
-        Refresh();
+        
     }
 
     private void Refresh()
