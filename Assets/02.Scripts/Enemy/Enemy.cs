@@ -79,10 +79,16 @@ public abstract class Enemy : MonoBehaviour
 
     private static void AddScore()
     {
-        ScoreManager scoreManager = GameObject.FindAnyObjectByType<ScoreManager>();
-        if (scoreManager != null)
+        // 싱글톤 패턴 
+        // 1. 전역적으로 접근 가능하다.
+        // 2. 인스턴스(생성된 객체)가 하나임을 보장
+        
+        
+        
+        
+        if (ScoreManager.Instance != null)
         {
-            scoreManager.AddScore(100);
+            ScoreManager.Instance.AddScore(100);
         }
         else
         {
