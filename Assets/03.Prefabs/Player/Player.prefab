@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8100288029263751772}
   - component: {fileID: 6828700095247180138}
+  - component: {fileID: 4405452680183271243}
   - component: {fileID: 3497944486671280318}
   - component: {fileID: 3835854714322593080}
   - component: {fileID: 6475474489786438046}
@@ -134,7 +135,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &3497944486671280318
+--- !u!114 &4405452680183271243
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,17 +144,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 4154766026773612202}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4439d612932abca4ab43eea3dae64c06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAutoMove
+  _moveSpeed: 10
+--- !u!114 &3497944486671280318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4154766026773612202}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1f3e0b3276f14c42bad4b99f46842f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
   _speed: 5
   _maxSpeed: 10
-  MaxPositionY: -0.5
-  MinPositionY: -4.5
-  MaxPositionX: 2.5
-  MinPositionX: -2.5
-  _LefttrailRenderer: {fileID: 0}
-  _RighttrailRenderer: {fileID: 0}
+  _maxPosition: {x: 0, y: 0}
+  _minPosition: {x: 0, y: 0}
+  _LeftTrailRenderer: {fileID: 0}
+  _RightTrailRenderer: {fileID: 0}
 --- !u!114 &3835854714322593080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,7 +191,7 @@ MonoBehaviour:
   CoolTimer: 0
   _boomCooldown: 10
   _boomTimer: 0
-  AutoFireMode: 0
+  AutoFireMode: 1
 --- !u!114 &6475474489786438046
 MonoBehaviour:
   m_ObjectHideFlags: 0

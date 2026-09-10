@@ -147,7 +147,7 @@ public class Item : InteractableObject
                     // 캡슐화 : 
                     // + 데이터 은닉(Speed 속성 private 처리)
                     // + 행위를 통한 상태 변경 (SpeedUp 호출)
-                    other.gameObject.GetComponent<PlayerMove>().SpeedUp(_buffScale);
+                    //(임시) other.gameObject.GetComponent<PlayerMove>().SpeedUp(_buffScale);
                     break;
                 }
                 case ItemType.FireRateUp:

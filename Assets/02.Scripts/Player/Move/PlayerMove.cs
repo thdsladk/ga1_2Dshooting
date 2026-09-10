@@ -12,13 +12,11 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _maxSpeed;
 
-    public float MaxPositionY;
-    public float MinPositionY;
-    public float MaxPositionX;
-    public float MinPositionX;
+    [SerializeField] private Vector2 _maxPosition;
+    [SerializeField] private Vector2 _minPosition;
 
-    [SerializeField] private TrailRenderer _LefttrailRenderer;
-    [SerializeField] private TrailRenderer _RighttrailRenderer;
+    [SerializeField] private TrailRenderer _LeftTrailRenderer;
+    [SerializeField] private TrailRenderer _RightTrailRenderer;
 
     private void Awake()
     {
@@ -32,11 +30,6 @@ public class PlayerMove : MonoBehaviour
     {
         Move();
         SpeedChange();
-    }
-
-    public float GetSpeed()
-    {
-        return _speed;
     }
 
     public void SpeedUp(float upValue)
@@ -75,18 +68,18 @@ public class PlayerMove : MonoBehaviour
 
         if (normalizedDirection.y > 0)
         {
-            if (_LefttrailRenderer != null && _RighttrailRenderer != null)
+            if (_LeftTrailRenderer != null && _RightTrailRenderer != null)
             {
-                _LefttrailRenderer.emitting = true;
-                _RighttrailRenderer.emitting = true;
+                _LeftTrailRenderer.emitting = true;
+                _RightTrailRenderer.emitting = true;
             }
         }
         else
         {
-            if (_LefttrailRenderer != null && _RighttrailRenderer != null)
+            if (_LeftTrailRenderer != null && _RightTrailRenderer != null)
             {
-                _LefttrailRenderer.emitting = false;
-                _RighttrailRenderer.emitting = false;
+                _LeftTrailRenderer.emitting = false;
+                _RightTrailRenderer.emitting = false;
             }
         }
 
@@ -96,23 +89,23 @@ public class PlayerMove : MonoBehaviour
         Vector2 newPosition = transform.position + (Vector3)normalizedDirection * _speed * Time.deltaTime;
 
         // 4. 위치 y에 제한이 있다.
-        if (newPosition.y > MaxPositionY)
+        if (newPosition.y > _maxPosition.y)
         {
-            newPosition.y = MaxPositionY;
+            newPosition.y = _maxPosition.y;
         }
-        else if (newPosition.y < MinPositionY)
+        else if (newPosition.y < _minPosition.y)
         {
-            newPosition.y = MinPositionY;
+            newPosition.y = _minPosition.y;
         }
 
         // 5. 양 옆 끝으로 가면 반대쪽 방향으로 이동
-        if (newPosition.x > MaxPositionX)
+        if (newPosition.x > _maxPosition.x)
         {
-            newPosition.x = MinPositionX;
+            newPosition.x = _minPosition.x;
         }
-        else if (newPosition.x < MinPositionX)
+        else if (newPosition.x < _minPosition.x)
         {
-            newPosition.x = MaxPositionX;
+            newPosition.x = _maxPosition.x;
         }
 
         transform.position = newPosition;

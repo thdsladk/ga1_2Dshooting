@@ -23,6 +23,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
+        ;
         _audioSource.Play();
     }
 
