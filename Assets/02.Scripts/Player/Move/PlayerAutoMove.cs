@@ -29,8 +29,8 @@ public class PlayerAutoMove : MonoBehaviour
     {
         // 2. 방향을 구한다.
         Vector3 direction = _enemyArray[0].transform.position - transform.position;
-        direction.Normalize();
         direction.y = 0;
+        direction.Normalize();
 
         // 3. 속도에 맞게 이동을 한다.
         transform.Translate(direction * Time.deltaTime * _moveSpeed);
