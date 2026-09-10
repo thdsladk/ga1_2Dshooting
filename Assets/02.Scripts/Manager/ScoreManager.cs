@@ -11,7 +11,6 @@ public class ScoreManager : MonoBehaviour
 
     private int _bestScore = 0;
     private int _currentScore = 0;
-    private int _lastRefreshScore = -1;
 
     // UI 책임 추가         //TextMeshProUGUI UI용 Canvas안에서 생성되는 애
     [SerializeField] private TextMeshProUGUI _bestScoreTextUI;
@@ -39,23 +38,18 @@ public class ScoreManager : MonoBehaviour
         {
             _bestScore = _currentScore;
         }
-        
+
         // UI 갱신 
         Refresh();
     }
 
     private void Update()
     {
-        
     }
 
     private void Refresh()
     {
-        if (_lastRefreshScore == _currentScore) return;
-        
         _bestScoreTextUI.text = $"BestScore: {_bestScore}";
         _currentScoreTextUI.text = $"Score: {_currentScore}";
-        
-        _lastRefreshScore = _currentScore;
     }
 }
