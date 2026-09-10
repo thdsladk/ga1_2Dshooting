@@ -147,7 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4439d612932abca4ab43eea3dae64c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAutoMove
-  _moveSpeed: 10
+  _moveSpeed: 5
+  _maxPosition: {x: 2.5, y: 0}
+  _minPosition: {x: -2.5, y: -5}
 --- !u!114 &3497944486671280318
 MonoBehaviour:
   m_ObjectHideFlags: 0
