@@ -12,7 +12,8 @@ public abstract class Enemy : MonoBehaviour
     private Animator _animator;
 
     // - 생성할 프리팹
-    [Header("생성할 적 프리팹")] [SerializeField] private Item[] _itemPrefabs;
+    [Header("생성할 적 프리팹")]
+    //[SerializeField] private Item[] _itemPrefabs;
 
     // - 죽을때 생성할 이펙트 프리펩
     [SerializeField] private GameObject _deathEffectPrefab;
@@ -62,8 +63,6 @@ public abstract class Enemy : MonoBehaviour
         // 그래서 !!!!! 
         // Todo: Scriptable Object 를 사용해서 리팩토링
         //
-        if (Random.Range(0, 100) >= 30) return;
-        Instantiate(_itemPrefabs[Random.Range(0, 3)], transform.position, transform.rotation);
 
         // 1. 모두 더한다. 
         int totalWeight = 0;
@@ -82,8 +81,9 @@ public abstract class Enemy : MonoBehaviour
             CumulativeWeight += data.Weight;
             if (randomWeight < CumulativeWeight)
             {
-                GameObject item = Instantiate(data.ItemPrefab);
+                Item item = ItemPool.Instance.GetItem(data.Type);
                 item.transform.position = transform.position;
+                item.OnSpawn();
                 break;
             }
         }

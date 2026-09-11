@@ -11,6 +11,7 @@ public class PlayerAutoMove : MonoBehaviour
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private Vector2 _maxPosition;
     [SerializeField] private Vector2 _minPosition;
+    private static readonly Vector3 _center = new Vector3(0f, -3f, 0f);
 
 
     private void Awake()
@@ -23,9 +24,21 @@ public class PlayerAutoMove : MonoBehaviour
         if (_target == null || _target.transform.position.y < _minPosition.y)
         {
             SearchEnemy();
+            CenterReturnMove();
         }
 
-        Move();
+        if (_target != null)
+        {
+            Move();
+        }
+    }
+
+    private void CenterReturnMove()
+    {
+        Vector3 direction = (_center - transform.position).normalized;
+
+        // 3. 속도에 맞게 이동을 한다.
+        transform.Translate(direction * Time.deltaTime * _moveSpeed);
     }
 
     private void Move()

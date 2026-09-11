@@ -21,6 +21,7 @@ public class Item : InteractableObject
     [SerializeField] private ItemType _type;
     [SerializeField] private float _startDelayTime = 3f;
 
+
     // Idle Motion 관련 변수
     [SerializeField] private float _idleAmplitude = 0.2f; // 위아래 움직임 크기
     [SerializeField] private float _idleFrequency = 2f; // 움직임 속도
@@ -44,8 +45,12 @@ public class Item : InteractableObject
     // Audio
     private AudioSource _GettingAudioSource;
 
+    // Property
+    public ItemType ItemType => _type;
+
     private void Awake()
     {
+        _GettingAudioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -66,11 +71,14 @@ public class Item : InteractableObject
         }
     }
 
-    //public float GetItem
+    public void OnSpawn()
+    {
+        gameObject.SetActive(true);
 
-    /// <summary>
-    /// 아이템을 위아래로 생동감 있게 움직이는 메서드
-    /// </summary>
+        _GettingAudioSource.Play();
+    }
+
+
     private void IdleMotion()
     {
         //float newY = _startPosition.y + Mathf.Sin(Time.deltaTime * _idleFrequency) * _idleAmplitude;
@@ -157,7 +165,8 @@ public class Item : InteractableObject
                 }
             }
 
-            Destroy(gameObject);
+            // 파괴 안하고 비활성화 
+            gameObject.SetActive(false);
         }
     }
 
