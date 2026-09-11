@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BulletPool : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class BulletPool : MonoBehaviour
 
     // 필요 속성 
     [Header("총알 프리팹")]
-    [SerializeField] private Bullet _bulletPrefab;
+    [SerializeField] private Bullet[] _bulletPrefabs;
 
     [Header("풀 사이즈")]
     [SerializeField] private int _poolSize = 50;
@@ -37,52 +38,34 @@ public class BulletPool : MonoBehaviour
 
         // 총알 초기화 파트
 
-        // 창고를 창고 크기만큼 생성
-        _pool = new Bullet[_poolSize];
+        // 창고를 창고 크기만큼 생성       // _poolSize는 프리펩 하나당의 크기이다. 
+        _pool = new Bullet[_poolSize * _bulletPrefabs.Length];
 
         // 창고 크기 만큼 총알을 미리 만들어서 집어 넣는다. 
-        for (int i = 0; i < _poolSize; i++)
+        foreach (Bullet bulletPrefab in _bulletPrefabs)
         {
-            Bullet bullet = Instantiate(_bulletPrefab);
-            bullet.gameObject.SetActive(false); // 비활성화로 시작
-            _pool[i] = bullet;
-        }
-
-        // Sub
-        // 창고를 창고 크기만큼 생성
-        _poolSub = new Bullet[_poolSize];
-
-        // 창고 크기 만큼 총알을 미리 만들어서 집어 넣는다. 
-        for (int i = 0; i < _poolSize; i++)
-        {
-            Bullet bullet = Instantiate(_bulletPrefab);
-            bullet.gameObject.SetActive(false); // 비활성화로 시작
-            _poolSub[i] = bullet;
+            for (int i = 0; i < _poolSize; i++)
+            {
+                Bullet bullet = Instantiate(bulletPrefab, transform);
+                bullet.gameObject.SetActive(false); // 비활성화로 시작
+                _pool[i] = bullet;
+            }
         }
     }
 
-    public Bullet GetBullet()
+    public Bullet GetBullet(BulletType type)
     {
         foreach (Bullet bullet in _pool)
         {
+            if (bullet.BulletType != type)
+            {
+                continue;
+            }
+            
             if (bullet.gameObject.activeSelf == false)
             {
                 bullet.gameObject.SetActive(true);
                 bullet.OnSpawn();
-                return bullet;
-            }
-        }
-
-        return null;
-    }
-
-    public Bullet GetSubBullet()
-    {
-        foreach (Bullet bullet in _poolSub)
-        {
-            if (bullet.gameObject.activeSelf == false)
-            {
-                bullet.gameObject.SetActive(true);
                 return bullet;
             }
         }

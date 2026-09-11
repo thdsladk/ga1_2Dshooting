@@ -9,8 +9,12 @@ public class Bullet : MonoBehaviour
     public float MoveSpeed;
     public int Damage;
 
+    [SerializeField] private BulletType _type;
+
     private AudioSource _audioSource;
 
+
+    public BulletType BulletType => _type;
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -20,9 +24,10 @@ public class Bullet : MonoBehaviour
     {
         // 프리팹이 활성화 될때마다 
         // 초기화 하는 코드들이 들어간다.
-        
+
         PlaySound();
     }
+
     public void PlaySound()
     {
         if (_audioSource != null)
