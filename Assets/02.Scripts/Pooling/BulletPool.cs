@@ -20,9 +20,7 @@ public class BulletPool : MonoBehaviour
     [SerializeField] private int _poolSize = 50;
 
     // 생성한 총알을 담아둘 풀
-    private Bullet[] _pool;
-    private Bullet[] _poolSub;
-
+    private Bullet[,] _pool;
 
     private void Awake()
     {
@@ -39,36 +37,42 @@ public class BulletPool : MonoBehaviour
         // 총알 초기화 파트
 
         // 창고를 창고 크기만큼 생성       // _poolSize는 프리펩 하나당의 크기이다. 
-        _pool = new Bullet[_poolSize * _bulletPrefabs.Length];
-
-        // 창고 크기 만큼 총알을 미리 만들어서 집어 넣는다. 
-        foreach (Bullet bulletPrefab in _bulletPrefabs)
+        _pool = new Bullet[_bulletPrefabs.Length, _poolSize];
+        
+        for (int i = 0; i < _bulletPrefabs.Length; i++)
         {
-            for (int i = 0; i < _poolSize; i++)
+            Bullet bulletPrefab = _bulletPrefabs[i];    // [메인 총알 프리팹, 서브 총알 프리팹 ]
+            for (int j = 0; j < _poolSize; j++)
             {
                 Bullet bullet = Instantiate(bulletPrefab, transform);
                 bullet.gameObject.SetActive(false); // 비활성화로 시작
-                _pool[i] = bullet;
+                _pool[i,j] = bullet;
             }
         }
     }
 
     public Bullet GetBullet(BulletType type)
     {
-        foreach (Bullet bullet in _pool)
+        for (int i = 0; i < _pool.Length; i++)
         {
-            if (bullet.BulletType != type)
+            if (_pool[i, 0].BulletType != type)
             {
                 continue;
             }
             
-            if (bullet.gameObject.activeSelf == false)
+            for(int j = 0;j<_poolSize;j++)
             {
-                bullet.gameObject.SetActive(true);
-                bullet.OnSpawn();
-                return bullet;
+                Bullet bullet = _pool[i,j];
+                
+                if (bullet.gameObject.activeSelf == false)
+                {
+                    bullet.gameObject.SetActive(true);
+                    bullet.OnSpawn();
+                    return bullet;
+                }
             }
         }
+
 
         return null;
     }
