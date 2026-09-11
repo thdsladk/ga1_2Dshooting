@@ -142,7 +142,7 @@ public class Item : InteractableObject
                     player.Heal(_buffScale);
                     break;
                 }
-                case ItemType.MoveSpeed:
+                case ItemType.MoveSpeedUp:
                 {
                     // 캡슐화 : 
                     // + 데이터 은닉(Speed 속성 private 처리)

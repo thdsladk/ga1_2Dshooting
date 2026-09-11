@@ -19,6 +19,8 @@ public abstract class Enemy : MonoBehaviour
 
     private AudioSource _damagedAudioSource;
 
+    [SerializeField] private ItemSpawnDataTableSO _spawnItemTable;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -54,20 +56,41 @@ public abstract class Enemy : MonoBehaviour
 
     private void SpawnItem()
     {
-        if (Random.Range(0, 100) >= 30) return;
-        Instantiate(_itemPrefabs[Random.Range(0, 3)], transform.position, transform.rotation);
-        //Debug.Log("아이템!!!!");
-    }
-
-    private void Death()
-    {
         // 단점
         // 1. 세팅한 사람만 알고 뭐가 어떤 프리팹이 들어 있는지 모른다.
         // 2. 각 적 스폰 확률을 매직 넘버로 하드 코딩해서 유지보수가 어렵다.
         // 그래서 !!!!! 
         // Todo: Scriptable Object 를 사용해서 리팩토링
         //
+        if (Random.Range(0, 100) >= 30) return;
+        Instantiate(_itemPrefabs[Random.Range(0, 3)], transform.position, transform.rotation);
 
+        // 1. 모두 더한다. 
+        int totalWeight = 0;
+        foreach (ItemSpawnData data in _spawnItemTable.Datas)
+        {
+            totalWeight += data.Weight;
+        }
+
+        // 2. 전체 가중치 범위에서 랜덤한 정수를 뽑는다.
+        int randomWeight = Random.Range(0, totalWeight);
+
+        // 3. 가중치를 누적하면서 선택된 구간을 뽑느다.
+        int CumulativeWeight = 0;
+        foreach (ItemSpawnData data in _spawnItemTable.Datas)
+        {
+            CumulativeWeight += data.Weight;
+            if (randomWeight < CumulativeWeight)
+            {
+                GameObject item = Instantiate(data.ItemPrefab);
+                item.transform.position = transform.position;
+                break;
+            }
+        }
+    }
+
+    private void Death()
+    {
         SpawnItem();
         SpawnDeathEffect();
 

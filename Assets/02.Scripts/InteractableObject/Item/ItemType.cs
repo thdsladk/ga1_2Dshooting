@@ -3,6 +3,6 @@ using UnityEngine;
 public enum ItemType
 {
     Heal,
-    MoveSpeed,
+    MoveSpeedUp,
     FireRateUp
 }

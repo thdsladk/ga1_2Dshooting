@@ -13,7 +13,12 @@ public class EnemySpawner : MonoBehaviour
 
     // - 생성할 프리팹
     [Header("스폰할 적 프리팹")] [SerializeField] private Enemy[] _enemyPrefabs;
+    [SerializeField] private EnemySpawnDataTableSO _spawnDataTable;
 
+
+    private void Start()
+    {
+    }
 
     private void Update()
     {
@@ -35,22 +40,31 @@ public class EnemySpawner : MonoBehaviour
         // 그래서 !!!!! 
         // Todo: Scriptable Object 를 사용해서 리팩토링
         //
-        
-        int PerSent = UnityEngine.Random.Range(1, 101);
-        int Index = 0;
-        if (PerSent < 50)
+
+        // 가중치 랜덤 선택  ( Weight Random Select ) ( 자신의 가중치 / 전체 가중치 )     // 나중에 벨런스 AI 툴 시트 만들것.( 벨런스 자동화 )
+        // 각 아이템에 가중치를 부여하고, 가중치가 클수록 높은 확률로 선택되도록 하는 방식 
+
+        // 1. 모두 더한다. 
+        int totalWeight = 0;
+        foreach (EnemySpawnData data in _spawnDataTable.Datas)
         {
-        }
-        else if (PerSent < 80)
-        {
-            Index = 1;
-        }
-        else
-        {
-            Index = 2;
+            totalWeight += data.Weight;
         }
 
-        Enemy enemy = Instantiate(_enemyPrefabs[Index]);
-        enemy.transform.position = transform.position;
+        // 2. 전체 가중치 범위에서 랜덤한 정수를 뽑는다.
+        int randomWeight = Random.Range(0, totalWeight);
+
+        // 3. 가중치를 누적하면서 선택된 구간을 뽑느다.
+        int CumulativeWeight = 0;
+        foreach (EnemySpawnData data in _spawnDataTable.Datas)
+        {
+            CumulativeWeight += data.Weight;
+            if (randomWeight < CumulativeWeight)
+            {
+                GameObject enemy = Instantiate(data.EnemyPrefab);
+                enemy.transform.position = transform.position;
+                break;
+            }
+        }
     }
 }
