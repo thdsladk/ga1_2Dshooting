@@ -4,5 +4,5 @@ using UnityEngine;
 public class ItemSpawnData
 {
     public GameObject ItemPrefab;
-    public int Weight;
+    [IntPercent] public int Weight;
 }
