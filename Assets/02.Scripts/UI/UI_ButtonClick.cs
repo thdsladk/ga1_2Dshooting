@@ -13,10 +13,15 @@ public class UI_ButtonClick : MonoBehaviour
     private float _scale = 1.0f;
     private bool _isBumping = false;
     private float _elapsedTime = 0.0f;
-    private const float BumpDuration = 0.6f;
-    private const float BumpScale = 1.0f;
+    private const float BumpDuration = 0.3f;
+    private const float BumpScale = 1.1f;
 
     private void Awake()
+    {
+
+    }
+
+    private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
         _button = GetComponent<Button>();
