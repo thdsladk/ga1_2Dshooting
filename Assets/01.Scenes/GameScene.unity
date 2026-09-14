@@ -1613,8 +1613,9 @@ GameObject:
   - component: {fileID: 1230606616}
   - component: {fileID: 1230606615}
   - component: {fileID: 1230606614}
-  - component: {fileID: 1230606617}
   - component: {fileID: 1230606618}
+  - component: {fileID: 1230606619}
+  - component: {fileID: 1230606620}
   m_Layer: 5
   m_Name: UI_AutoButton
   m_TagString: Untagged
@@ -1685,7 +1686,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1230606617}
+      - m_Target: {fileID: 1230606619}
         m_TargetAssemblyTypeName: UI_AutoButton, Assembly-CSharp
         m_MethodName: AutoToggle
         m_Mode: 1
@@ -1735,20 +1736,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1230606612}
   m_CullTransparentMesh: 1
---- !u!114 &1230606617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1230606612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 078767d900b145d42a480ee0ed492d61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI_AutoButton
-  _onSprite: {fileID: 1206005349077091292, guid: 6e1c5af3f17494b4ea424b55c50b19f8, type: 3}
-  _offSprite: {fileID: 2475711161320758719, guid: bca2987e501fb7c4daf01510356eefcd, type: 3}
 --- !u!82 &1230606618
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1843,6 +1830,56 @@ AudioSource:
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1230606619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230606612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078767d900b145d42a480ee0ed492d61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_AutoButton
+  _onSprite: {fileID: 1206005349077091292, guid: 6e1c5af3f17494b4ea424b55c50b19f8, type: 3}
+  _offSprite: {fileID: 2475711161320758719, guid: bca2987e501fb7c4daf01510356eefcd, type: 3}
+--- !u!114 &1230606620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230606612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8afbca7139e1c9a44b53172662f19ce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_ButtonClick
+  _bumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
