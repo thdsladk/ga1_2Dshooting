@@ -32,6 +32,11 @@ public class PlayerFire : MonoBehaviour
     // - 오토 모드
     public bool AutoFireMode = false;
 
+    public void SetAutoMode(bool autoMode)
+    {
+        AutoFireMode = autoMode;
+    }
+
     private void Start()
     {
         CoolTimer = CoolTime;

@@ -38,7 +38,8 @@ public class PlayerAutoMove : MonoBehaviour
         Vector3 direction = (_center - transform.position).normalized;
 
         // 3. 속도에 맞게 이동을 한다.
-        transform.Translate(direction * Time.deltaTime * _moveSpeed);
+        //transform.Translate(direction * Time.deltaTime * _moveSpeed, Space.World);
+        transform.position += direction * Time.deltaTime * _moveSpeed;
     }
 
     private void Move()

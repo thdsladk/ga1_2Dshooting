@@ -18,6 +18,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private TrailRenderer _LeftTrailRenderer;
     [SerializeField] private TrailRenderer _RightTrailRenderer;
 
+
     private void Awake()
     {
         // 애니메이터 컴포넌트에 대한 참조를 가져와서 할당한다.

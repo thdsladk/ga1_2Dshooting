@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float _attackRate;
     [SerializeField] private float _attackSpeed = 1f;
 
+    private bool _autoFireMove = false;
+
     // 멤버 컴포넌트 자리
     [SerializeField] private InteractiveComponent _interactableComponent;
 
@@ -33,6 +35,7 @@ public class Player : MonoBehaviour
     //    
     //}
     public float Health => _health; // 람다식 문법 ( 프로퍼티 ) 
+
 
     public InteractiveComponent GetInteractiveComponent()
     {
