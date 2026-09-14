@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 231165709}
   - component: {fileID: 231165708}
   m_Layer: 0
-  m_Name: UpgradeManager
+  m_Name: '@UpgradeManager'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3606,6 +3606,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4405452680183271243, guid: 99dff084d9e44b04b8a6e2ec452bb1eb, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4405452680183271243, guid: 99dff084d9e44b04b8a6e2ec452bb1eb, type: 3}
+      propertyPath: _LeftTrailRenderer
+      value: 
+      objectReference: {fileID: 1462061148}
+    - target: {fileID: 4405452680183271243, guid: 99dff084d9e44b04b8a6e2ec452bb1eb, type: 3}
+      propertyPath: _RightTrailRenderer
+      value: 
+      objectReference: {fileID: 863401498}
     - target: {fileID: 6475474489786438046, guid: 99dff084d9e44b04b8a6e2ec452bb1eb, type: 3}
       propertyPath: _LeftFirePoint
       value: 

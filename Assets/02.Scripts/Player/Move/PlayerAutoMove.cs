@@ -12,18 +12,19 @@ public class PlayerAutoMove : MonoBehaviour
     [SerializeField] private Vector2 _maxPosition;
     [SerializeField] private Vector2 _minPosition;
     private static readonly Vector3 _center = new Vector3(0f, -3f, 0f);
+    [SerializeField] private int _stopTrackingY = 2;
 
 
-    private void Awake()
-    {
-    }
+    [SerializeField] private TrailRenderer _LeftTrailRenderer;
+    [SerializeField] private TrailRenderer _RightTrailRenderer;
+
 
     private void Update()
     {
         // 1. 타겟을 구한다.   타겟이 없거나 타겟이 있어도 최소 범위보다 아래일때 
         if (_target == null || _target.transform.position.y < _minPosition.y)
         {
-            SearchEnemy();
+            FindNearestTarget();
             CenterReturnMove();
         }
 
@@ -46,10 +47,10 @@ public class PlayerAutoMove : MonoBehaviour
     private void Move()
     {
         // 2. 방향을 구한다.
-        Vector3 diff = _enemyArray[0].transform.position - transform.position;
+        Vector3 diff = _target.transform.position - transform.position;
         Vector3 direction = diff;
 
-
+        // 적과 나와의 y축 차이가 3보다 크면 앞으로 가고 아니면 뒤로가게
         if (diff.y >= 3)
         {
             direction.y = 1;
@@ -61,26 +62,52 @@ public class PlayerAutoMove : MonoBehaviour
 
         direction.Normalize();
 
+        // Trail Section
+        if (direction.y > 0)
+        {
+            if (_LeftTrailRenderer != null && _RightTrailRenderer != null)
+            {
+                _LeftTrailRenderer.emitting = true;
+                _RightTrailRenderer.emitting = true;
+            }
+        }
+        else
+        {
+            if (_LeftTrailRenderer != null && _RightTrailRenderer != null)
+            {
+                _LeftTrailRenderer.emitting = false;
+                _RightTrailRenderer.emitting = false;
+            }
+        }
+
         // 3. 속도에 맞게 이동을 한다.
         transform.Translate(direction * Time.deltaTime * _moveSpeed);
     }
 
-    private void SearchEnemy()
+    private void FindNearestTarget()
     {
-        _enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
-        Array.Sort(_enemyArray, (a, b) =>
-        {
-            float distA = Vector3.Distance(transform.position, a.transform.position);
-            float distB = Vector3.Distance(transform.position, b.transform.position);
-            return distA.CompareTo(distB); // 가까운 순으로 정렬
-        });
+        // 1. 타겟을 구한다.
+        GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy");
+        if (targets.Length == 0) return;
 
-        foreach (GameObject target in _enemyArray)
+        _target = targets[0];
+        float minDistance = float.MaxValue;
+
+        // 1-1. 가장 가까운 타겟을 찾는다.
+        foreach (GameObject enemy in targets)
         {
-            if (target.transform.position.y >= _minPosition.y)
+            if (enemy.transform.position.y < -_stopTrackingY)
             {
-                _target = target;
-                break;
+                continue;
+            }
+
+            // 거리를 구해서
+            float distance = Vector2.Distance(transform.position, enemy.transform.position);
+            if (distance < minDistance) // 저장된 거리보다 짧다면
+            {
+                // 타겟 변경
+                minDistance = distance;
+                _target = enemy;
             }
         }
     }

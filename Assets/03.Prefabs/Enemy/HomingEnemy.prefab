@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2567945193926782037}
   - component: {fileID: 171292530877040251}
   - component: {fileID: 970012976728963986}
-  - component: {fileID: 8768273693054403040}
   - component: {fileID: 7364577282862639120}
+  - component: {fileID: 3823171830356428882}
   m_Layer: 8
   m_Name: HomingEnemy
   m_TagString: Enemy
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8414478535512612329, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
+  m_Sprite: {fileID: -8421458170528590454, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -137,14 +137,32 @@ MonoBehaviour:
   _health: 100
   _moveSpeed: 2
   _damage: 1
-  _itemPrefabs:
-  - {fileID: 1594942017718975824, guid: 5b439dc5a8049714295a59d32c3a6661, type: 3}
-  - {fileID: 3386437422565619033, guid: 5c598af308e7e754ab683bf73ca9d33c, type: 3}
-  - {fileID: 4756363371271322880, guid: 4435a88d7542a4644baa2971d5c918ba, type: 3}
   _deathEffectPrefab: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
   _spawnItemTable: {fileID: 11400000, guid: 4ff338fd68bab64489b39efe6545d29b, type: 2}
---- !u!60 &8768273693054403040
-PolygonCollider2D:
+--- !u!95 &7364577282862639120
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7266651809476765594}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ad0e9ae887301dd4e9f958d81d2321e2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!61 &3823171830356428882
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -181,39 +199,11 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.45833334}
+    oldSize: {x: 1.3333334, y: 1.125}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.25, y: 0.22916667}
-      - {x: -0.25, y: -0.22916667}
-      - {x: 0.25, y: -0.22916667}
-      - {x: 0.25, y: 0.1875}
-      - {x: 0.20833334, y: 0.22916667}
-  m_UseDelaunayMesh: 1
---- !u!95 &7364577282862639120
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7266651809476765594}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ad0e9ae887301dd4e9f958d81d2321e2, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_Size: {x: 1.3333334, y: 1.125}
+  m_EdgeRadius: 0

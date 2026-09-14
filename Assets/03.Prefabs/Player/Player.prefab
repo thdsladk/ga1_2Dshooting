@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4439d612932abca4ab43eea3dae64c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAutoMove
+  _target: {fileID: 0}
   _moveSpeed: 5
   _maxPosition: {x: 2.5, y: 0}
   _minPosition: {x: -2.5, y: -5}
@@ -164,8 +165,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
   _speed: 5
   _maxSpeed: 10
-  _maxPosition: {x: 0, y: 0}
-  _minPosition: {x: 0, y: 0}
+  _maxPosition: {x: 2.5, y: 0}
+  _minPosition: {x: -2.5, y: -5}
   _LeftTrailRenderer: {fileID: 0}
   _RightTrailRenderer: {fileID: 0}
 --- !u!114 &3835854714322593080

@@ -67,6 +67,7 @@ public class PlayerMove : MonoBehaviour
         // 2. 키보드 입력에 따라 방향을 구한다.
         Vector2 normalizedDirection = new Vector2(h, v).normalized;
 
+        // Trail Section
         if (normalizedDirection.y > 0)
         {
             if (_LeftTrailRenderer != null && _RightTrailRenderer != null)
