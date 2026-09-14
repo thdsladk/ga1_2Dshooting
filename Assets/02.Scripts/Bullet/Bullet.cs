@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour
 
 
     public BulletType BulletType => _type;
+
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -66,7 +67,8 @@ public class Bullet : MonoBehaviour
             // 결합도란 묻는거.. 매번 묻는거..
             // 무적모드 검사하고
             // 방어력 검사.. 
-            enemy.TakeDamage(Damage);
+            int finalDamage = Damage + (int)UpgradeManager.Instance.Upgrades[0].CurrentValue;
+            enemy.TakeDamage(finalDamage);
         }
 
         gameObject.SetActive(false);

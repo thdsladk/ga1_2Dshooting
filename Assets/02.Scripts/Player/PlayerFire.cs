@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.Serialization;
 
 public class PlayerFire : MonoBehaviour
@@ -61,7 +62,8 @@ public class PlayerFire : MonoBehaviour
             Fire();
 
             // 3. 쿨타이머 초기화
-            CoolTimer = CoolTime;
+            float finalCoolTime = CoolTime - UpgradeManager.Instance.Upgrades[1].CurrentValue;
+            CoolTimer = finalCoolTime;
         }
 
         if (_boomTimer > 0)

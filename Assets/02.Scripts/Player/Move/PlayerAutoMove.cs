@@ -39,7 +39,8 @@ public class PlayerAutoMove : MonoBehaviour
 
         // 3. 속도에 맞게 이동을 한다.
         //transform.Translate(direction * Time.deltaTime * _moveSpeed, Space.World);
-        transform.position += direction * Time.deltaTime * _moveSpeed;
+        float finalSpeed = _moveSpeed + UpgradeManager.Instance.Upgrades[2].CurrentValue;
+        transform.position += direction * Time.deltaTime * finalSpeed;
     }
 
     private void Move()

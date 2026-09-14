@@ -9,6 +9,8 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private Upgrade[] _upgrades;
     public Upgrade[] Upgrades => _upgrades;
 
+    [SerializeField] private UI_Upgrade[] _uiUpgrades;
+
     private void Awake()
     {
         if (_instance == null)
@@ -21,7 +23,23 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        RefreshUI();
+    }
+
     public void LevelUp(int index)
     {
+        _upgrades[index].LevelUp();
+        RefreshUI();
+    }
+
+    // UI 갱신
+    private void RefreshUI()
+    {
+        foreach (UI_Upgrade uiUpgrade in _uiUpgrades)
+        {
+            uiUpgrade.Refresh();
+        }
     }
 }
