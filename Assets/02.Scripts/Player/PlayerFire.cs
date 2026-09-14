@@ -63,6 +63,7 @@ public class PlayerFire : MonoBehaviour
 
             // 3. 쿨타이머 초기화
             float finalCoolTime = CoolTime - UpgradeManager.Instance.Upgrades[1].CurrentValue;
+            finalCoolTime = Mathf.Clamp(finalCoolTime, 0.1f, 0.5f);
             CoolTimer = finalCoolTime;
         }
 
