@@ -69,7 +69,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Refresh()
     {
-        _bestScoreTextUI.text = $"BestScore: {_bestScore : N0}";
-        _currentScoreTextUI.text = $"Score: {_currentScore :N0}";
+        _bestScoreTextUI.text = $"BestScore: {_bestScore:N0}";
+        _currentScoreTextUI.text = $"Score: {_currentScore:N0}";
     }
 }
