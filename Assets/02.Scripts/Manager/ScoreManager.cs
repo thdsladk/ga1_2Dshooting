@@ -11,6 +11,7 @@ public class ScoreManager : MonoBehaviour
 
     private int _bestScore = 0;
     private int _currentScore = 0;
+    public int Score => _currentScore;
 
     private string SaveKey = "BestScore";
 
@@ -45,6 +46,11 @@ public class ScoreManager : MonoBehaviour
         Refresh();
     }
 
+    public void SpendScore(int amount)
+    {
+        _currentScore -= amount;
+        Refresh();
+    }
 
     public void AddScore(int score)
     {

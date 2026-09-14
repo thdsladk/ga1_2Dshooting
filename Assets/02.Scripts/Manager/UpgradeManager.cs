@@ -30,6 +30,17 @@ public class UpgradeManager : MonoBehaviour
 
     public void LevelUp(int index)
     {
+        // 골드 매니저에게 돈이 있는지 물어보고 돈이 있다면 차감후 업그레이드 
+
+        Upgrade upgrade = _upgrades[index];
+        // 매니저 간의 협력 
+        if (ScoreManager.Instance.Score < upgrade.Cost)
+        {
+            return;
+        }
+
+        ScoreManager.Instance.SpendScore(upgrade.Cost);
+
         _upgrades[index].LevelUp();
         RefreshUI();
     }
