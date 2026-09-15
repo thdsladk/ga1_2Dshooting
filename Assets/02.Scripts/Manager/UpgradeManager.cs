@@ -68,6 +68,7 @@ public class UpgradeManager : MonoBehaviour
         // 데이터 저장은 유의미한 정보만 저장을 한다. 
         // 그래서 레벨만 저장한다.
         // 데이터를 분산해서 저장하면 오버헤드와 데이터 접근에서 캐시 미스가 생길수 있다.
+        // Todo : 암호화 복호화 
 
         UpgradeSaveData saveData = new UpgradeSaveData(_upgrades.Length);
         for (int i = 0; i < _upgrades.Length; i++)
@@ -82,18 +83,18 @@ public class UpgradeManager : MonoBehaviour
         string json = JsonUtility.ToJson(saveData);
         PlayerPrefs.SetString(UpgradeSaveDataKey, json);
         PlayerPrefs.Save();
+        Debug.Log($"{json} 저장 완료");
     }
 
     private void Load()
     {
-        if (PlayerPrefs.HasKey(UpgradeSaveDataKey)) return;
-        
+        if (PlayerPrefs.HasKey(UpgradeSaveDataKey) == false) return;
+
         string json = PlayerPrefs.GetString(UpgradeSaveDataKey);
         UpgradeSaveData saveData = JsonUtility.FromJson<UpgradeSaveData>(json);
 
         for (int i = 0; i < _upgrades.Length; i++)
         {
-            Debug.Log($"{_upgrades[i].Name} 로드 완료!");
             _upgrades[i].SetLevel(saveData.Level[i]);
         }
     }
