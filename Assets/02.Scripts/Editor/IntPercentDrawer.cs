@@ -59,7 +59,3 @@ public class IntPercentDrawer : PropertyDrawer
         EditorGUI.EndProperty();
     }
 }
-
-public class IntPercentAttribute : PropertyAttribute
-{
-}

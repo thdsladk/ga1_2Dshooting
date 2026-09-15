@@ -73,7 +73,7 @@ public class PlayerFire : MonoBehaviour
         }
 
         // Boom Check
-        if (SimpleInput.GetButtonDown("Boom"))
+        if (SimpleInput.GetKeyDown(KeyCode.B))
         {
             Boom();
         }
