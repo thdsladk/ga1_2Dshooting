@@ -8,12 +8,17 @@ public class EnemySpawner : MonoBehaviour
     // Header는 에디터 화면에서 이름을 달아주기 위한 기능.
     // 필요 속성
     // - 타이머
-    [Header("스폰 간격")] [SerializeField] private float _spawnInterval = 3f;
+    [Header("스폰 간격")]
+    [SerializeField] private float _spawnInterval = 3f;
+
     private float _timer;
 
     // - 생성할 프리팹
-    [Header("스폰할 적 프리팹")] [SerializeField] private Enemy[] _enemyPrefabs;
+    [Header("스폰할 적 프리팹")]
+    [SerializeField] private Enemy[] _enemyPrefabs;
+
     [SerializeField] private EnemySpawnDataTableSO _spawnDataTable;
+    [SerializeField] private EnemyBalanceDataTableSO _balanceDataTable;
 
 
     private void Start()
@@ -63,8 +68,26 @@ public class EnemySpawner : MonoBehaviour
             {
                 GameObject enemy = Instantiate(data.EnemyPrefab);
                 enemy.transform.position = transform.position;
+                enemy.GetComponent<Enemy>().SetHealthBalance(GetHealthMultiplier());
                 break;
             }
         }
+    }
+
+    public float GetHealthMultiplier()
+    {
+        // Todo : BestScore에 따라 밸런스 데이터의 multi 뭐시기 반환 
+        int bestScore = ScoreManager.Instance.BestScore;
+        float healthMultiplier = 1.0f;
+        foreach (EnemyBalanceData data in _balanceDataTable.Datas)
+        {
+            if (bestScore >= data.RequiredScore)
+            {
+                healthMultiplier = data.HealthMultiplier;
+            }
+        }
+
+        return healthMultiplier;
+        // _balanceDataTable.Datas[^1] ^1은 마지막 값을 의미한다. 새로운 문법.
     }
 }
