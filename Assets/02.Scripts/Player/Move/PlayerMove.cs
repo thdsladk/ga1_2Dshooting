@@ -61,8 +61,8 @@ public class PlayerMove : MonoBehaviour
     private void Move()
     {
         // 1. 키보드 입력을 받는다.
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = SimpleInput.GetAxisRaw("Horizontal");
+        float v = SimpleInput.GetAxisRaw("Vertical");
 
         // 2. 키보드 입력에 따라 방향을 구한다.
         Vector2 normalizedDirection = new Vector2(h, v).normalized;
