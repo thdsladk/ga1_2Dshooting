@@ -11,6 +11,8 @@ public class UpgradeManager : MonoBehaviour
 
     [SerializeField] private UI_Upgrade[] _uiUpgrades;
 
+    private const string UpgradeSaveDataKey = "UpgradeSaveData";
+
     private void Awake()
     {
         if (_instance == null)
@@ -25,11 +27,15 @@ public class UpgradeManager : MonoBehaviour
 
     private void Start()
     {
+        // 시작할때 불러오고
+        Load();
+
         RefreshUI();
     }
 
     public void LevelUp(int index)
     {
+        // Todo : 묻지말고 시켜라 ! 
         // 골드 매니저에게 돈이 있는지 물어보고 돈이 있다면 차감후 업그레이드 
 
         Upgrade upgrade = _upgrades[index];
@@ -42,6 +48,9 @@ public class UpgradeManager : MonoBehaviour
         ScoreManager.Instance.SpendScore(upgrade.Cost);
 
         _upgrades[index].LevelUp();
+        // 레벨업 하면 저장
+        Save();
+
         RefreshUI();
     }
 
@@ -51,6 +60,41 @@ public class UpgradeManager : MonoBehaviour
         foreach (UI_Upgrade uiUpgrade in _uiUpgrades)
         {
             uiUpgrade.Refresh();
+        }
+    }
+
+    private void Save()
+    {
+        // 데이터 저장은 유의미한 정보만 저장을 한다. 
+        // 그래서 레벨만 저장한다.
+        // 데이터를 분산해서 저장하면 오버헤드와 데이터 접근에서 캐시 미스가 생길수 있다.
+
+        UpgradeSaveData saveData = new UpgradeSaveData(_upgrades.Length);
+        for (int i = 0; i < _upgrades.Length; i++)
+        {
+            saveData.Name[i] = _upgrades[i].Name;
+            saveData.Level[i] = _upgrades[i].Level;
+        }
+        // 게임 데이터 보면 확장자가 게임별로 다 다르다.
+        // JSON 포맷으로 문자열 변환으로
+        // 키와 밸류 형태로 저장한 형태
+
+        string json = JsonUtility.ToJson(saveData);
+        PlayerPrefs.SetString(UpgradeSaveDataKey, json);
+        PlayerPrefs.Save();
+    }
+
+    private void Load()
+    {
+        if (PlayerPrefs.HasKey(UpgradeSaveDataKey)) return;
+        
+        string json = PlayerPrefs.GetString(UpgradeSaveDataKey);
+        UpgradeSaveData saveData = JsonUtility.FromJson<UpgradeSaveData>(json);
+
+        for (int i = 0; i < _upgrades.Length; i++)
+        {
+            Debug.Log($"{_upgrades[i].Name} 로드 완료!");
+            _upgrades[i].SetLevel(saveData.Level[i]);
         }
     }
 }

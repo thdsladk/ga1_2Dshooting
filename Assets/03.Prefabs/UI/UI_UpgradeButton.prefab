@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 1003153370479815447}
   - component: {fileID: 601191067253408650}
   m_Layer: 5
-  m_Name: UI_AttackRateUpgradeButton
+  m_Name: UI_UpgradeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
