@@ -44,6 +44,8 @@ public class ItemPool : MonoBehaviour
             Item itemPrefab = _itemPrefabs[i]; // [ ]
             for (int j = 0; j < _poolSize; j++)
             {
+                if (j >= _pool.GetLength(0)) return;
+
                 Item item = Instantiate(itemPrefab, transform);
                 item.gameObject.SetActive(false); // 비활성화로 시작
                 _pool[i, j] = item;
@@ -53,18 +55,19 @@ public class ItemPool : MonoBehaviour
 
     public Item GetItem(ItemType type)
     {
-        for (int i = 0; i < _pool.Length; i++)
+        for (int i = 0; i < _pool.GetLength(0); i++)
         {
             if (_pool[i, 0].ItemType != type)
             {
                 continue;
             }
 
-            for (int j = 0; j < _poolSize; j++)
+            int columnSize = _pool.GetLength(1);
+            for (int j = 0; j < columnSize; j++)
             {
                 Item item = _pool[i, j];
 
-                if (item.gameObject.activeSelf == false)
+                if (item != null && item.gameObject.activeSelf == false)
                 {
                     item.gameObject.SetActive(true);
                     item.OnSpawn();

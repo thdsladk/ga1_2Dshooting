@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour
     {
         if (_audioSource != null)
         {
-            _audioSource.pitch = UnityEngine.Random.Range(-0.8f, 2.5f);
+            _audioSource.pitch = UnityEngine.Random.Range(0.8f, 2.5f);
             _audioSource.volume = UnityEngine.Random.Range(0.8f, 1.0f);
         }
     }

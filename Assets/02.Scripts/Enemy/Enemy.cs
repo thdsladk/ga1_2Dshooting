@@ -79,6 +79,12 @@ public abstract class Enemy : MonoBehaviour
             totalWeight += data.Weight;
         }
 
+        if (totalWeight <= 0)
+        {
+            Debug.Log("Spawn table has no valid weights.");
+            return;
+        }
+
         // 2. 전체 가중치 범위에서 랜덤한 정수를 뽑는다.
         int randomWeight = Random.Range(0, totalWeight);
 
@@ -90,9 +96,12 @@ public abstract class Enemy : MonoBehaviour
             if (randomWeight < CumulativeWeight)
             {
                 Item item = ItemPool.Instance.GetItem(data.Type);
-                item.transform.position = transform.position;
-                item.OnSpawn();
-                break;
+                if (item != null)
+                {
+                    item.transform.position = transform.position;
+                    item.OnSpawn();
+                    break;
+                }
             }
         }
     }
